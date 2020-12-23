@@ -7,9 +7,10 @@ import (
   "fmt"
   "log"
   "time"
+  c "./controllers"
 )
 
-func main () {
+func main() {
   r := mux.NewRouter()
 
   r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -20,7 +21,7 @@ func main () {
   r.HandleFunc("/{name}", func(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
     w.WriteHeader(http.StatusOK)
-    fmt.Fprintf(w, "Hello %v", vars["name"])
+    fmt.Fprintf(w, "%v", c.Signup_c("test@test.acc", "test", vars["name"]))
   }).Methods("GET")
 
   srv := &http.Server{

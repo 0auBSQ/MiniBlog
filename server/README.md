@@ -4,6 +4,7 @@
 
 - Pgx (Postgresql) `go get github.com/jackc/pgx`
 - Gorilla mux `go get -u github.com/gorilla/mux`
+- Whirlpool (far better than sha256) `go get github.com/jzelinskie/whirlpool`
 
 ## Usage
 
