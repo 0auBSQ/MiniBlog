@@ -8,11 +8,17 @@ import (
   "log"
   "time"
   c "./controllers"
+  m "./models"
 )
 
 func main() {
   r := mux.NewRouter()
 
+  fmt.Printf("Connecting to database...\n")
+  m.Connect_m()
+  fmt.Printf("Database connection succeded\n")
+
+  fmt.Printf("Server setup...\n")
   r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
     w.WriteHeader(http.StatusOK)
     fmt.Fprintf(w, "Hello world")
@@ -31,6 +37,6 @@ func main() {
     ReadTimeout: 15 * time.Second,
   }
 
-  fmt.Printf("Launched on port 8888")
+  fmt.Printf("Launched on port 8888\n")
   log.Fatal(srv.ListenAndServe())
 }
