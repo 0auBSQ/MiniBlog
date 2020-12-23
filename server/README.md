@@ -1,0 +1,18 @@
+# Golang server
+
+## Required packages
+
+- Pgx (Postgresql) `go get github.com/jackc/pgx`
+- Gorilla mux `go get -u github.com/gorilla/mux`
+
+## Usage
+
+`go run server.go`
+
+## Postgresql setup
+
+Launch :
+```
+sudo service postgresql-13 start
+sudo -u postgres psql
+```
