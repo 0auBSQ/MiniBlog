@@ -1,6 +1,6 @@
 <template>
   <nav class="topnav" id="myTopnav">
-    <router-link class="navBarItem" v-for="routes in links" v-bind:key="routes.id" :to="`${routes.page}`"></router-link>
+    <router-link class="navBarItem" v-for="routes in links" v-bind:key="routes.id" :to="`${routes.page}`">{{routes.text}}</router-link>
   </nav>
 </template>
 
