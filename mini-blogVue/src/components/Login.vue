@@ -6,7 +6,7 @@
      <input required v-model="userName" type="text" placeholder="Snoopy"/>
      <label>Password</label>
      <input required v-model="password" type="password" placeholder="Password"/>
-     <router-link to="/register">Register</router-link>
+     <router-link to="/register" class="regis">Register</router-link>
      <button type="submit">Login</button>
    </form>
  </div>

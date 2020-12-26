@@ -22,12 +22,23 @@ input, button, label {
   padding: .5em;
 }
 
+.regis {
+  margin-top: 1.5em;
+}
+
 button {
   margin-top: 1em;
+  color: white;
+  background: #262626;
+  -webkit-transition: .3s;
+  transition: .3s;
+  border: none;
+  padding: .7em;
 }
 
 button:hover {
   cursor: pointer;
+  background: #e5b31b;
 }
 
 label {

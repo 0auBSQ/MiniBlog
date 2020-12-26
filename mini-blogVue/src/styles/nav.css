@@ -22,7 +22,7 @@
   color: black;
 }
 
-.topnav .navBarItem.active {
+.topnav .active {
   background-color: #e5b31b;
   color: white;
 }

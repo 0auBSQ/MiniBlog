@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form class="login register" @submit.prevent="login">
+    <form class="login register" @submit.prevent="checkForm">
       <h1>Register</h1>
       <label>User name</label>
       <input required v-model="userName" type="text" placeholder="Snoopy" />
