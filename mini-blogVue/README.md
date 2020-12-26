@@ -5,6 +5,7 @@
 npm install -g @vue/cli
 npm install vuex
 npm install vue-router
+npm install axios@latest
 ```
 
 ### Compiles and hot-reloads for development
