@@ -13,6 +13,10 @@
   font-size: 17px;
 }
 
+.log {
+  float: right;
+}
+
 .topnav .navBarItem:hover {
   background-color: #ddd;
   color: black;

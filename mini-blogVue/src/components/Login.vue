@@ -3,7 +3,7 @@
    <form class="login" @submit.prevent="login">
      <h1>Sign in</h1>
      <label>User name</label>
-     <input required v-model="username" type="text" placeholder="Snoopy"/>
+     <input required v-model="userName" type="text" placeholder="Snoopy"/>
      <label>Password</label>
      <input required v-model="password" type="password" placeholder="Password"/>
      <router-link to="/register">Register</router-link>
@@ -17,6 +17,12 @@ export default {
   name: "login",
   props: {
     
+  },
+  data () {
+    return {
+      userName: null,
+      password: null
+    }
   },
   methods: {
     /*login: function () {

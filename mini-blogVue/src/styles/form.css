@@ -12,6 +12,10 @@
           align-items: center;
 }
 
+.register {
+  margin-top: 17vh;
+}
+
 input, button, label {
   width: 15vw;
   min-width: 20px;
