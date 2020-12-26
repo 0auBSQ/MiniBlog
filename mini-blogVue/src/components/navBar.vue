@@ -1,9 +1,7 @@
 <template>
- <div class="topnav" id="myTopnav">
-  <a href="#home" class="active">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Log in</a>
-</div>
+  <nav class="topnav" id="myTopnav">
+    <router-link class="navBarItem" v-for="routes in links" v-bind:key="routes.id" :to="`${routes.page}`"></router-link>
+  </nav>
 </template>
 
 <script>
@@ -11,6 +9,28 @@ export default {
   name: "navBar",
   props: {
     
+  },
+  data () {
+    return {
+      links: [
+        {
+          id: 0,
+          text: 'Home',
+          page: '/'
+        },
+        {
+          id: 1,
+          text: 'News',
+          page: '/news'
+        },
+        {
+          id: 2,
+          text: 'Login',
+          page: '/login'
+        }
+
+      ]
+    }
   }
 }
 </script>
