@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
+
 const routes = [
     {
         path: "/",
@@ -24,6 +25,10 @@ const routes = [
         path: "/news",
         name: "News",
         component: () => import("../views/News.vue")
+    },
+    {
+        path: "*",
+        component: () => import("../views/Missing.vue")
     }
 ]
 
