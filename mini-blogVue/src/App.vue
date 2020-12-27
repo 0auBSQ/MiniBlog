@@ -3,7 +3,9 @@
     <div class="circle"></div>
     <div class="circle1"></div>
     <nav-bar></nav-bar>
-    <router-view/>
+    <transition name="anim" mode="out-in" enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutRight">
+      <router-view/>
+    </transition>
     
   </div>
   
@@ -22,7 +24,12 @@ export default {
 </script>
 
 <style lang="css">
-
+  @import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css";
   @import './styles/app.css';
 
-</style>
+  .animated {
+    -webkit-animation-duration: 0.9s;
+    animation-duration: 0.9s;
+  }
+
+</style>    
