@@ -4,7 +4,6 @@ import (
   "database/sql"
 )
 
-
 func CheckErr(err error, status int) int {
   if (err != nil) {
     return (500)

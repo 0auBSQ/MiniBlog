@@ -10,7 +10,7 @@ import (
   c "./controllers"
   m "./models"
   //"io"
-  "encoding/json"
+  //"encoding/json"
 )
 
 type Register struct {
@@ -32,23 +32,23 @@ func main() {
     fmt.Fprintf(w, "Hello world")
   }).Methods("GET")
 
-  r.HandleFunc("/{name}", func(w http.ResponseWriter, r *http.Request) {
-    vars := mux.Vars(r)
+  r.HandleFunc("/api/register", func(w http.ResponseWriter, r *http.Request) {
+    /*vars := mux.Vars(r)
     w.WriteHeader(http.StatusOK)
-
     info := Register{"test@test.acc", "test", vars["name"]}
     js, err := json.Marshal(info)
     if err != nil {
       http.Error(w, err.Error(), http.StatusInternalServerError)
       return
     }
-
     w.Header().Set("Content-Type", "application/json")
-    w.Write(js)
+    w.Write(js)*/
 
-    fmt.Fprintf(w, "\n%v", c.Signup_c("test@test.acc", "test", vars["name"]))
+    status := c.Signup_c(r.FormValue("email"), r.FormValue("login"), r.FormValue("password"))
+    w.WriteHeader(status)
+    //fmt.Fprintf(w, "\n%v", c.Signup_c("test@test.acc", "test", vars["name"]))
     //io.WriteString(w, "LIDL")
-  }).Methods("GET")
+  }).Methods("POST")
 
   srv := &http.Server{
     Handler: r,
