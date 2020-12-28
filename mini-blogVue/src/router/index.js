@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+//import Home from "../views/Home.vue";
+import AccountInfo from "../views/AccountInfo.vue";
+import Admin from "../views/Admin.vue";
 
 Vue.use(VueRouter);
 
@@ -9,7 +11,7 @@ const routes = [
     {
         path: "/",
         name: "Home",
-        component: Home,
+        component: () => import("../views/Account"), //Home,
         alias: '/home'
     },
     {
@@ -28,9 +30,25 @@ const routes = [
         component: () => import("../views/News.vue")
     },
     {
+        path: '/account',
+        component : () => import("../views/Account.vue"),
+        children: [{
+            path: 'userinfo',
+            components: {
+                info: AccountInfo
+            }
+        },{
+            path: 'admin', 
+            components: {
+                info: Admin
+            }
+        }]
+    },
+    {
         path: "*",
         component: () => import("../views/Missing.vue")
-    }
+    },
+    
 ]
 
 const router = new VueRouter({

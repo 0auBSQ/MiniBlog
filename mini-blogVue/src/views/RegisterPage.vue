@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <inscription></inscription>
     </div>
 </template>
@@ -14,5 +14,5 @@ export default {
 }
 </script>
 <style>
-
+    
 </style>

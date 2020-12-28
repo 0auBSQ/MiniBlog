@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <login></login>
     </div>
 </template>
@@ -17,5 +17,12 @@ export default {
 }
 </script>
 <style>
+    
+    .container {
+        width: 50%;
+        padding: 30px;
+        margin: 0 auto 0 auto;
+        height: calc(60% - 50px);
+    }
 
 </style>
