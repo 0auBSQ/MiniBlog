@@ -1,6 +1,6 @@
 <template>
     <div class="containerInfo">
-        <h2>Test account info</h2>
+        <h2>Profile Information</h2>
         <form class="formaccount">
             <div class="field">
                 <label>First Name</label>
@@ -23,9 +23,9 @@
             <div class="field">
                 <label>Gender</label>
                 <select required v-model="gender" placeholder="">
-                    <option value="">Male</option>
-                    <option value="">Female</option>
-                    <option value="">Other</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
                 </select>
             </div>
             <hr/>
@@ -34,7 +34,7 @@
                 <input required v-model="dateBirth" type="date" placeholder=""/>
             </div>
             <hr/>
-            <button type="submit">Login</button>
+            <button type="submit">Save</button>
         </form>
     </div>
 </template>
@@ -51,6 +51,9 @@ export default {
             gender: null,
             dateBirth: null,
         }
+    },
+    methods: {
+        
     }
 }
 </script>
