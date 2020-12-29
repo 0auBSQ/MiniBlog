@@ -1,8 +1,8 @@
 <template>
-    <div class="container">
-        <router-link to="/account/userinfo">Profile Information</router-link>
-        <router-link v-if="admin > 0" to="/account/admin">Admin</router-link>
-        <router-link to="/login">Disconnect</router-link>
+    <div class="containerNav">
+        <router-link class="navItem" to="/account/userinfo"><div class="text">Profile Information</div></router-link>
+        <router-link class="navItem" v-if="admin > 0" to="/account/admin"><div class="text">Admin</div></router-link>
+        <router-link class="navItem disconnect" to="/login"><div class="text">Disconnect</div></router-link>
     </div>
 </template>
 
@@ -19,6 +19,6 @@ export default {
 }
 </script>
 
-<style>
-    
+<style scoped>
+    @import "../styles/accountnav.css";
 </style>

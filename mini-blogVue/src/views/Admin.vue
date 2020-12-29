@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <h1>Test Admin</h1>
+    <div class="containerAdmin">
+        <h2>Test Admin</h2>
     </div>
 </template>
 
@@ -11,5 +11,5 @@ export default {
 </script>
 
 <style>
-
+    @import "../styles/admin.css";
 </style>

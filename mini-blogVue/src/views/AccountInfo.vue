@@ -1,15 +1,60 @@
 <template>
-    <div class="container">
-        <h1>Test account info</h1>
+    <div class="containerInfo">
+        <h2>Test account info</h2>
+        <form class="formaccount">
+            <div class="field">
+                <label>First Name</label>
+                <input required v-model="firstName" type="text" placeholder=""/>
+            </div>
+            <div class="field">
+                <label>Last Name</label>
+                <input required v-model="lastName" type="text" placeholder=""/>
+            </div>
+            <div class="field">
+                <label>User name</label>
+                <input required v-model="userName" type="text" placeholder=""/>
+            </div>
+            <hr/>
+            <div class="field">
+                <label>Email Adress</label>
+                <input required v-model="email" type="email" placeholder=""/>
+            </div>
+            <hr/>
+            <div class="field">
+                <label>Gender</label>
+                <select required v-model="gender" placeholder="">
+                    <option value="">Male</option>
+                    <option value="">Female</option>
+                    <option value="">Other</option>
+                </select>
+            </div>
+            <hr/>
+            <div class="field">
+                <label>Date of Birth</label>
+                <input required v-model="dateBirth" type="date" placeholder=""/>
+            </div>
+            <hr/>
+            <button type="submit">Login</button>
+        </form>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'AccountInfo'
+    name: 'AccountInfo',
+    data () {
+        return {
+            firstName: null,
+            lastname: null,
+            username: null,
+            email: null,
+            gender: null,
+            dateBirth: null,
+        }
+    }
 }
 </script>
 
 <style>
-
+    @import "../styles/accountInfo.css"; 
 </style>

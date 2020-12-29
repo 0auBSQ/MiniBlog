@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="containerlog">
         <login></login>
     </div>
 </template>
@@ -18,7 +18,7 @@ export default {
 </script>
 <style>
     
-    .container {
+    .containerlog {
         width: 50%;
         padding: 30px;
         margin: 0 auto 0 auto;

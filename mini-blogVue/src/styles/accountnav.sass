@@ -1,0 +1,53 @@
+.containerNav
+    display: flex
+    flex-direction: column
+    margin: 17.5vh auto
+    padding: 10px 0px 20px 0px
+    box-shadow: 0px 4px 5px rgba(0,0,0,0.75)
+    background: rgba(0,0,0,0.75)
+    border: 1px solid #111
+    max-width: 200px
+    max-height: 17vh
+
+.navItem
+    font-family: 'Raleway', sans-serif
+    font-size:  16px
+    font-weight: 300
+    height: 40px
+    line-height: 40px
+    margin-top: 10px
+    margin-left: 5%
+    width: 90%
+    text-decoration: none
+    color: white
+    text-align: center
+    position: relative
+    overflow: hidden
+    cursor: pointer
+
+.navItem:after
+    content: ''
+    position: absolute
+    width: 80%
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5)
+    bottom: 50%
+    left: -100%
+    transition-delay: all 0.5s
+    transition: all 0.5s
+
+.navItem:hover:after,
+.navItem.hover:after
+   left: 115%
+
+.navItem .text
+   text-shadow: 0px -40px 0px rgba(255, 255, 255, 1)
+   transition: all 0.75s
+   transform: translateY(100%) translateZ(0)
+   transition-delay: all 0.25s
+
+.navItem:hover .text,
+.navItem.hover .text
+   text-shadow: 0px -40px 0px rgba(255, 255, 255, 0)
+   transform: translateY(0%) translateZ(0) scale(1.1)
+   font-weight: 600
+

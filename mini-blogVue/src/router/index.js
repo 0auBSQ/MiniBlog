@@ -57,4 +57,14 @@ const router = new VueRouter({
     routes
 });
 
+router.beforeEach((to,from,next) => {
+    if(to.matched.some(route => route.meta.requiresAuth)){
+      if(Vue.$store.state.Auth.is_auth_token) return next();
+  
+      return next('/non-auth-required-route');
+    }
+  
+    next();
+  });
+
 export default router;

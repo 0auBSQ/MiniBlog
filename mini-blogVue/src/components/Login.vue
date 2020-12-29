@@ -35,6 +35,6 @@ export default {
 }
 </script>
 
-<style scoped lang="css">
+<style scoped >
   @import '../styles/form.css';
 </style>

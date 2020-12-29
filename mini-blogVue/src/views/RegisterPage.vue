@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="containerReg">
         <inscription></inscription>
     </div>
 </template>
