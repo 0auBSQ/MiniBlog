@@ -1,0 +1,31 @@
+.homeContainer {
+  margin-top: 8vh;
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+.postContainer {
+  margin-top: 5vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.card {
+  padding: auto;
+  margin: 2em;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+
+.card:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+/*# sourceMappingURL=home.css.map */
