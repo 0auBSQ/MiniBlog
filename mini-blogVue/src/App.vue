@@ -28,8 +28,8 @@ export default {
   @import './styles/app.css';
 
   .animated {
-    -webkit-animation-duration: 0.3s;
-    animation-duration: 0.3s;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
   }
 
 </style>    
