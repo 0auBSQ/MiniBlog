@@ -14,6 +14,8 @@
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
 }
 
 .view {

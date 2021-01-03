@@ -1,15 +1,31 @@
+import Vue from "vue"
 import axios from 'axios'
-import { createStore } from 'vuex'
+import Vuex from 'vuex'
 
-export default createStore({
+const AUTH_ERROR = 'AUTH_ERROR'
+const AUTH_SUCCESS = 'AUTH_SUCCESS'
+const AUTH_REQUEST = 'AUTH_REQUEST'
+const AUTH_LOGOUT = 'AUTH_LOGOUT'
+const USER_REQUEST = 'USER_REQUEST'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
     state: {
         token: localStorage.getItem('user-token') || '',
         status: '',
     },
     getters: {
-        isAuth: state => !!state.token,
+        isAuth: ()/*state*/ => true,//!!state.token,
         authStatus: state => state.status,
-
+        account: (getters) => {
+            if(getters.isAuth) return false
+            else return true
+        },
+        login: (getters) => {
+            if(getters.isAuth) return true
+            else return false
+        }
     },
     mutations: {
         [AUTH_REQUEST]: (state) => {
@@ -21,6 +37,9 @@ export default createStore({
         },
         [AUTH_ERROR]: (state) => {
             state.status = 'error'
+        },
+        [AUTH_LOGOUT]: (state) => {
+            state.token = ''
         }
     },
     actions: {
@@ -29,7 +48,7 @@ export default createStore({
                 commit(AUTH_REQUEST)
                 axios({url:'auth',data: user, method: 'POST'})
                 .then(resp => {
-                    const token = rep.data.token
+                    const token = resp.data.token
                     localStorage.setItem('user-token',token)
                     commit(AUTH_SUCCESS, token)
                     dispatch(USER_REQUEST)
@@ -41,7 +60,16 @@ export default createStore({
                     reject(err)
                 })
             })
+        },
+        [AUTH_LOGOUT]: ({commit}) => {
+            return new Promise((resolve) => {
+                commit(AUTH_LOGOUT)
+                localStorage.removeItem('user-token')
+                resolve()
+            })
+           
         }
+
     },
     modules: {
         

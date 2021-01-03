@@ -1,23 +1,41 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-//import Home from "../views/Home.vue";
+//import store from "../store";
+import Home from "../views/Home.vue";
 import AccountInfo from "../views/AccountInfo.vue";
 import Admin from "../views/Admin.vue";
 
 Vue.use(VueRouter);
 
 
+/*const isNotAuth = (to, from, next) => {
+    if(store.getters.isAuth){
+        next()
+        return
+    }
+    next("/account")
+}*/
+
+/*const isAuth = (to, from, next) => {
+    if(store.getters.isAuth) {
+        next()
+        return
+    }
+    next("/login")
+}*/
+
 const routes = [
     {
         path: "/",
         name: "Home",
-        component: () => import("../views/Account"), //Home,
+        component: Home,
         alias: '/home'
     },
     {
         path: "/login",
         name: "LoginPage",
-        component: () => import("../views/LoginPage.vue")
+        component: () => import("../views/LoginPage.vue"),
+        //beforeEnter: isNotAuth
     },
     {
         path: "/register",
@@ -32,6 +50,7 @@ const routes = [
     {
         path: '/account',
         component : () => import("../views/Account.vue"),
+        //beforeEnter: isAuth,
         children: [{
             path: 'userinfo',
             components: {
@@ -57,14 +76,6 @@ const router = new VueRouter({
     routes
 });
 
-router.beforeEach((to,from,next) => {
-    if(to.matched.some(route => route.meta.requiresAuth)){
-      if(Vue.$store.state.Auth.is_auth_token) return next();
-  
-      return next('/login');
-    }
-  
-    next();
-  });
+
 
 export default router;
