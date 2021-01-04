@@ -2,6 +2,14 @@
   margin-top: 8vh;
   margin-left: 10vw;
   margin-right: 10vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  font-family: 'Raleway', sans-serif;
 }
 
 .postContainer {
@@ -17,6 +25,24 @@
       flex-wrap: wrap;
 }
 
+.aside {
+  margin-top: 8vh;
+  width: 20vw;
+  background: #262626;
+  max-height: 80vh;
+  color: white;
+}
+
+.search {
+  margin-top: 5vh;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.menu {
+  margin-bottom: 1vh;
+}
+
 .card {
   padding: auto;
   margin: 2em;
@@ -27,5 +53,12 @@
 .card:hover {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
+  -webkit-box-shadow: 10px 10px 0px 0px rgba(0, 0, 0, 0.75);
+          box-shadow: 10px 10px 0px 0px rgba(0, 0, 0, 0.75);
+}
+
+.sep {
+  width: 15vw;
+  margin-left: 1vw;
 }
 /*# sourceMappingURL=home.css.map */

@@ -2,8 +2,8 @@
  <div>
    <form class="login" @submit.prevent="login">
      <h1>Sign in</h1>
-     <label>User name</label>
-     <input required v-model="userName" type="text" placeholder="Snoopy"/>
+     <label>Email</label>
+     <input required v-model="userName" type="email" placeholder="Snoopy@gmail.com"/>
      <label>Password</label>
      <input required v-model="password" type="password" placeholder="Password"/>
      <router-link to="/register" class="regis">Register</router-link>

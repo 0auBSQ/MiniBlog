@@ -1,8 +1,21 @@
 <template>
     <div class="homeContainer">
-        <h2>Articles</h2>
+        
         <div class="postContainer">
           <postCard class="card" v-for="article in articleList" :key="article.title" v-bind:title="article.title" v-bind:author="article.author"></postCard>
+        </div>
+        <div class="aside">
+          <div class="search">
+            <h3 class="menu">Menu</h3>
+            <form action="">
+              <input type="text">
+              <button type="submit">Search</button>
+            </form>
+          </div>
+          <hr class="sep">
+          <div class="dateQ">
+
+          </div>
         </div>
     </div>
 </template>
