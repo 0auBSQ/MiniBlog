@@ -1,0 +1,24 @@
+.commentContainer {
+  diplay: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-left: 20vw;
+  margin-right: 20vw;
+  margin-top: 5vh;
+  border: 1px solid #9694859c;
+  padding: 1em;
+  border-radius: 10px;
+}
+
+.commentHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+/*# sourceMappingURL=comment.css.map */

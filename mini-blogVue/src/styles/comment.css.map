@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,iBAAiB,CAAC;EACd,MAAM,EAAE,IAAI;EACZ,cAAc,EAAE,MAAM;EACtB,WAAW,EAAE,IAAI;EACjB,YAAY,EAAE,IAAI;EAClB,UAAU,EAAE,GAAG;EACf,MAAM,EAAE,mBAAmB;EAC3B,OAAO,EAAE,GAAG;EACZ,aAAa,EAAE,IAAI;CAAG;;AAE1B,AAAA,cAAc,CAAC;EACX,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,GAAG;CAAG",
+    "sources": [
+        "comment.sass"
+    ],
+    "names": [],
+    "file": "comment.css"
+}
