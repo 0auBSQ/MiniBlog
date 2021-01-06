@@ -12,7 +12,7 @@
               <button type="submit">Search</button>
             </form>
           </div>
-          <hr class="sep">
+          
           <div class="dateQ">
             
           </div>
