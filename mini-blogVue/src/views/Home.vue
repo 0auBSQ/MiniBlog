@@ -2,7 +2,7 @@
     <div class="homeContainer">
         
         <div class="postContainer">
-          <postCard class="card" v-for="article in articleList" :key="article.title" v-bind:title="article.title" v-bind:author="article.author"></postCard>
+          <postCard class="card" v-for="article in articleList" :key="article.title" v-bind:title="article.title" v-bind:author="article.author" v-bind:id="article.id"></postCard>
         </div>
         <div class="aside">
           <div class="search">
@@ -28,22 +28,27 @@ export default {
     return {
       articleList: [
         {
+          id: 0,
           title: "mon incroyable article 1",
           author: "author 1"
         },
         {
+          id: 1,
           title: "mon incroyable article 2",
           author: "author 2"
         },
         {
+          id: 2,
           title: "mon incroyable article 3",
           author: "author 3"
         },
         {
+          id: 3,
           title: "mon incroyable article 4, le plus beau du monde",
           author: "author 4"
         },
         {
+          id: 4,
           title: "mon incroyable dernier article",
           author: "author 3"
         },

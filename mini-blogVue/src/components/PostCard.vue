@@ -6,7 +6,7 @@
         <div class="author">
             <p>{{author}}</p>
         </div>
-        <a class="see" href="/"><i>See more...</i></a>
+        <router-link :to="{ path: `/article/${id}` }"><i>See more...</i></router-link>
     </div>
 </template>
 
@@ -15,7 +15,8 @@ export default {
     name: "PostCard",
     props: {
         title: String,
-        author: String
+        author: String,
+        id: Number
     }
 
 }

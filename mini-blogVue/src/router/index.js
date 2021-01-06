@@ -64,6 +64,12 @@ const routes = [
         }]
     },
     {
+        path: '/article/:id',
+        name: 'article',
+        component: () => import("../views/Post.vue"),
+        props: true
+    },
+    {
         path: "*",
         component: () => import("../views/Missing.vue")
     },
