@@ -21,7 +21,10 @@ export default new Vuex.Store({
       
             try {
                 const res = await this.axios.get(url, {auth}).then(res => res.data)
-                this.res = res.data
+                if(res.status == 200){
+                    return true
+                }
+                else return false
                 
             } catch(err){
                 state.status = err.message
