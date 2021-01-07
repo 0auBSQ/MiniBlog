@@ -46,9 +46,10 @@ export default {
       
       try {
         //const res = await this.axios.post(url, {auth}).then(res => res.data)
-        //this.res = res.data
-        this.$store.commit('authSuccess')
-        this.$router.push({path: '/account'})
+        //if(res.status == 200){
+          this.$store.commit('authSuccess')
+          this.$router.push({path: '/account'})
+        //}
         
       } catch(err){
         this.error = err.message

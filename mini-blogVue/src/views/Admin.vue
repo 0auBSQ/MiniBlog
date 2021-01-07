@@ -6,9 +6,9 @@
         </div>
         <div class="addArticle">
             <h2>Add Article</h2>
-            <form class="article" @submiut.prevent="addarticle">
+            <form class="article" @submit.prevent="addarticle">
                 <textarea type="text" class="textarea" v-model="text"></textarea>
-                <button type="submit">Submit</button>
+                <button type="submit">Add</button>
             </form>
         </div>
     </div>
