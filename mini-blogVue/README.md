@@ -2,10 +2,7 @@
 
 ## Project setup
 ```
-npm install -g @vue/cli
-npm install vuex
-npm install vue-router
-npm install axios@latest
+npm install 
 ```
 
 ### Compiles and hot-reloads for development
