@@ -30,30 +30,31 @@ func Signup_m(mail string, login string, pass string, id string, vhash string) i
   return (u.CheckErr(err, 200))
 }
 
-func Signin_m(mail string, pass string) (id string, status int) {
+func Signin_m(mail string, pass string) (id string, status int, admin int) {
   db = Db_m()
   id = ""
-  rows, err := db.Query("SELECT id FROM users WHERE email=$1 AND password=$2", mail, pass)
+  admin = 0
+  rows, err := db.Query("SELECT id, is_admin FROM users WHERE email=$1 AND password=$2", mail, pass)
   if (err != nil) {
-    return "", 500
+    return "", 500, 0
   }
   defer rows.Close()
   for rows.Next() {
-    err := rows.Scan(&id)
+    err := rows.Scan(&id, &admin)
     if (err != nil) {
-      return "", 500
+      return "", 500, 0
     }
   }
   err = rows.Err()
   if (err != nil) {
-    return "", 500
+    return "", 500, 0
   }
 
   // If the id is not found, its value will remains an empty string, so the user does not exist, unauthorized status
   if (id == "") {
-    return "", 401
+    return "", 404, 0
   }
-  return id, 200
+  return id, 200, admin
 }
 
 func Userinfo_m(id string) (user User, status int) {

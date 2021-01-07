@@ -22,7 +22,7 @@ import { mapMutations } from 'vuex'
 export default {
   name: "login",
   props: {
-    
+
   },
   data () {
     return {
@@ -41,19 +41,26 @@ export default {
   },
   methods: {
     log: async function () {
-      //const auth = { email: this.email, password: this.password }
-      //const url = '127.0.0.1:8888/api/login'
-      
-      try {
-        //const res = await this.axios.post(url, {auth}).then(res => res.data)
-        //if(res.status == 200){
-          this.$store.commit('authSuccess')
-          this.$router.push({path: '/account'})
-        //}
-        
-      } catch(err){
-        this.error = err.message
-      }
+      const auth = { email: this.email, password: this.password }
+      const url = '/login'
+
+      console.log(auth);
+      await this.axios.post(url + "?email=" + this.email + "&password=" + this.password, {})
+        .then(res => {
+          if (res.status == 200){
+            this.$store.commit('authSuccess')
+            this.$router.push({path: '/account'})
+          }
+          console.log(res.status);
+        })
+        .catch(err => {
+          if (err.response.status === 404)
+            this.error = "The requested account doesn't exist";
+          else if (err.reponse.status === 500)
+            this.error = "Internal server error";
+          else
+            this.error = err.message;
+        })
     }
   }
 }

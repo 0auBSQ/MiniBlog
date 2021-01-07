@@ -3,6 +3,7 @@ package main
 import (
   //psql "github.com/jackc/pgx"
   "github.com/gorilla/mux"
+  "github.com/gorilla/handlers"
   "net/http"
   "fmt"
   "log"
@@ -11,6 +12,7 @@ import (
   m "./models"
   u "./utils"
   "io"
+  "strconv"
   //"encoding/json"
 )
 
@@ -57,11 +59,13 @@ func main() {
   }).Methods("POST")
 
   r.HandleFunc("/api/login", func(w http.ResponseWriter, r *http.Request) {
-    token, status := c.Signin_c(r.FormValue("email"), r.FormValue("password"))
+    token, status, admin := c.Signin_c(r.FormValue("email"), r.FormValue("password"))
     if (status == 200) {
       expiration := time.Now().Add(3 * 24 * time.Hour)
       cookie := http.Cookie{Name: "session_token", Value: token, Expires: expiration, HttpOnly: true}
+      cookie_admin := http.Cookie{Name: "status", Value: strconv.Itoa(admin), Expires: expiration}
       http.SetCookie(w, &cookie)
+      http.SetCookie(w, &cookie_admin)
     }
     w.WriteHeader(status)
   }).Methods("POST")
@@ -70,18 +74,24 @@ func main() {
     // Delete session cookie by putting a past date
     expiration := time.Now().Add(-3 * 24 * time.Hour)
     cookie := http.Cookie{Name: "session_token", Value: "", Expires: expiration, HttpOnly: true}
+    cookie_admin := http.Cookie{Name: "status", Value: "", Expires: expiration}
     http.SetCookie(w, &cookie)
+    http.SetCookie(w, &cookie_admin)
     w.WriteHeader(200)
   }).Methods("GET")
 
   r.HandleFunc("/api/is_auth", func(w http.ResponseWriter, r *http.Request) {
+    vars := mux.Vars(r)
     cookie, err := r.Cookie("session_token")
     if (err != nil) {
       w.WriteHeader(401)
       io.WriteString(w, "No session token")
     } else {
       token := cookie.Value
-      status := c.Isauth_c(token)
+      admin, status := c.Isauth_c(token)
+      if (vars["request_admin_access"] == "yes" && admin == 0) {
+        status = 401
+      }
       w.WriteHeader(status)
       if (status == 200) {
         io.WriteString(w, "Authorized")
@@ -91,13 +101,7 @@ func main() {
     }
   }).Methods("GET")
 
-  srv := &http.Server{
-    Handler: r,
-    Addr: "127.0.0.1:8888",
-    WriteTimeout: 15 * time.Second,
-    ReadTimeout: 15 * time.Second,
-  }
-
   fmt.Printf("Launched on port 8888\n")
-  log.Fatal(srv.ListenAndServe())
+  log.Fatal(http.ListenAndServe(":8888", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(r)))
+
 }
