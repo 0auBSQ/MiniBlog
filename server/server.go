@@ -10,7 +10,7 @@ import (
   c "./controllers"
   m "./models"
   u "./utils"
-  //"io"
+  "io"
   //"encoding/json"
 )
 
@@ -36,6 +36,8 @@ func main() {
     fmt.Fprintf(w, "Hello world")
   }).Methods("GET")
 
+  // Auth Routes
+
   r.HandleFunc("/api/register", func(w http.ResponseWriter, r *http.Request) {
     /*vars := mux.Vars(r)
     w.WriteHeader(http.StatusOK)
@@ -56,13 +58,30 @@ func main() {
 
   r.HandleFunc("/api/login", func(w http.ResponseWriter, r *http.Request) {
     token, status := c.Signin_c(r.FormValue("email"), r.FormValue("password"))
-    w.WriteHeader(status)
     if (status == 200) {
       expiration := time.Now().Add(3 * 24 * time.Hour)
       cookie := http.Cookie{Name: "session_token", Value: token, Expires: expiration, HttpOnly: true}
       http.SetCookie(w, &cookie)
     }
+    w.WriteHeader(status)
   }).Methods("POST")
+
+  r.HandleFunc("/api/is_auth", func(w http.ResponseWriter, r *http.Request) {
+    cookie, err := r.Cookie("session_token")
+    if (err != nil) {
+      w.WriteHeader(401)
+      io.WriteString(w, "No session token")
+    } else {
+      token := cookie.Value
+      status := c.Isauth_c(token)
+      w.WriteHeader(status)
+      if (status == 200) {
+        io.WriteString(w, "Authorized")
+      } else {
+        io.WriteString(w, "Invalid token")
+      }
+    }
+  }).Methods("GET")
 
   srv := &http.Server{
     Handler: r,

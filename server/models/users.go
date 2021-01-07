@@ -4,6 +4,18 @@ import (
   u "../utils"
 )
 
+type User struct {
+  id string
+  username string
+  email string
+  verified int
+  verify_hash string
+  is_admin int
+  is_banned int
+  last_log string
+  reg_date string
+}
+
 func Signup_m(mail string, login string, pass string, id string, vhash string) int {
   db = Db_m()
   rows, err := db.Query("SELECT COUNT(*) FROM users WHERE email=$1", mail)
@@ -42,4 +54,22 @@ func Signin_m(mail string, pass string) (id string, status int) {
     return "", 401
   }
   return id, 200
+}
+
+func Userinfo_m(id string) (user User, status int) {
+  db = Db_m()
+  status = 400
+  rows, err := db.Query("SELECT id, username, email, verified, verify_hash, is_admin, is_banned, last_log, reg_date FROM users WHERE id=$1", id)
+  if (err != nil) {
+    return user, 500
+  }
+  defer rows.Close()
+  for rows.Next() {
+    err := rows.Scan(&user.id, &user.username, &user.email, &user.verified, &user.verify_hash, &user.is_admin, &user.is_banned, &user.last_log, &user.reg_date)
+    if (err != nil) {
+      return user, 500
+    }
+    status = 200
+  }
+  return user, status
 }
