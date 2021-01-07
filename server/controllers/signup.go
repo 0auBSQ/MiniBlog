@@ -6,13 +6,9 @@ import (
   m "../models"
 )
 
-const (
-  salt = "okamari no suzoki kurai sasuke ga kakkoi"
-)
-
 func Signup_c(mail string, login string, pass string) int {
   // Whirlpool hashed (and salted) password (Very strong)
-  hashed_pass := u.WhirlpoolHash(pass + salt)
+  hashed_pass := u.WhirlpoolHash(pass)
 
   // Generate strong random user id (using MD5 hash algoritm since it's less sensitive)
   token := make([]byte, 64)

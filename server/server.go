@@ -9,6 +9,7 @@ import (
   "time"
   c "./controllers"
   m "./models"
+  u "./utils"
   //"io"
   //"encoding/json"
 )
@@ -27,6 +28,9 @@ func main() {
   fmt.Printf("Database connection succeded\n")
 
   fmt.Printf("Server setup...\n")
+
+  u.GenerateRandomKey()
+
   r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
     w.WriteHeader(http.StatusOK)
     fmt.Fprintf(w, "Hello world")
@@ -48,6 +52,16 @@ func main() {
     w.WriteHeader(status)
     //fmt.Fprintf(w, "\n%v", c.Signup_c("test@test.acc", "test", vars["name"]))
     //io.WriteString(w, "LIDL")
+  }).Methods("POST")
+
+  r.HandleFunc("/api/login", func(w http.ResponseWriter, r *http.Request) {
+    token, status := c.Signin_c(r.FormValue("email"), r.FormValue("password"))
+    w.WriteHeader(status)
+    if (status == 200) {
+      expiration := time.Now().Add(3 * 24 * time.Hour)
+      cookie := http.Cookie{Name: "session_token", Value: token, Expires: expiration, HttpOnly: true}
+      http.SetCookie(w, &cookie)
+    }
   }).Methods("POST")
 
   srv := &http.Server{
