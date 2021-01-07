@@ -35,7 +35,7 @@ export default {
     }
   },
   methods: {
-    checkForm: (e) => {
+    checkForm: function () {
       this.errors = [];
 
       if (!this.userName) {
@@ -53,14 +53,28 @@ export default {
       }
 
       if (!this.errors.length) {
-        return true;
+        this.register()
       }
-
-      e.preventDefault();
+      
+      
     },
     validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
+    },
+    register: async function () {
+      //const regist = { email: this.email, login: this.userName, password: this.password }
+      //const url = '127.0.0.1:8888/api/register'
+      
+      try {
+        //const res = await this.axios.post(url, {regist}).then(res => res.data)
+        //this.res = res.data
+        
+        this.$router.push({path: '/login'})
+        
+      } catch(err){
+        this.error = err.message
+      }
     }
   }
 };

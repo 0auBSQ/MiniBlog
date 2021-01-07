@@ -4,30 +4,35 @@
         <form class="formaccount">
             <div class="field">
                 <label>First Name</label>
-                <input required v-model="firstName" type="text" placeholder=""/>
+                <input v-model="firstName" type="text" placeholder=""/>
             </div>
             <div class="field">
                 <label>Last Name</label>
-                <input required v-model="lastName" type="text" placeholder=""/>
+                <input v-model="lastName" type="text" placeholder=""/>
             </div>
             <div class="field">
                 <label>User name</label>
-                <input required v-model="userName" type="text" placeholder=""/>
+                <input v-model="userName" type="text" placeholder=""/>
             </div>
             <hr/>
             <div class="field">
-                <label>Email Adress</label>
-                <input required v-model="email" type="email" placeholder=""/>
+                <label>Register Date</label>
+                <p>{{registerDate}}</p>
             </div>
             <hr/>
+            <div class="field">
+                <label>Last login Date</label>
+                <p>{{lastloginDate}}</p>
+            </div>
+            <!--<hr/>
             <div class="field">
                 <label>Gender</label>
-                <select required v-model="gender" placeholder="">
+                <select v-model="gender" placeholder="">
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
                 </select>
-            </div>
+            </div>-->
             <hr/>
             <div class="field">
                 <label>Date of Birth</label>
@@ -47,9 +52,10 @@ export default {
             firstName: null,
             lastname: null,
             username: null,
-            email: null,
+            registerDate: null,
             gender: null,
             dateBirth: null,
+            lastloginDate: null,
         }
     },
     methods: {

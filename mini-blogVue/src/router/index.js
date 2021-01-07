@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-//import store from "../store";
+import store from "../store";
 import Home from "../views/Home.vue";
 import AccountInfo from "../views/AccountInfo.vue";
 import Admin from "../views/Admin.vue";
@@ -51,6 +51,7 @@ const routes = [
         path: '/account',
         component : () => import("../views/Account.vue"),
         //beforeEnter: isAuth,
+        meta: { requiresAuth: true },
         children: [{
             path: 'userinfo',
             components: {
@@ -82,6 +83,20 @@ const router = new VueRouter({
     routes
 });
 
-
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+     
+      if (!store.getters.isAuth) {
+        next({
+          path: '/login',
+          query: { redirect: to.fullPath }
+        })
+      } else {
+        next()
+      }
+    } else {
+      next() 
+    }
+})
 
 export default router;

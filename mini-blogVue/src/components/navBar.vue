@@ -2,8 +2,8 @@
   <nav class="topnav" id="myTopnav">
     <router-link exact-active-class="active" class="navBarItem" v-for="routes in links" v-bind:key="routes.id" :to="`${routes.page}`">{{routes.text}}</router-link>
     <div class="log">
-      <router-link v-if="login" exact-active-class="active" class="navBarItem" to="/login">Login</router-link>
-      <router-link v-if="account" exact-active-class="active" class="navBarItem" to="/account">Account</router-link>
+      <router-link v-if="!isAuth" exact-active-class="active" class="navBarItem" to="/login">Login</router-link>
+      <router-link v-if="isAuth" exact-active-class="active" class="navBarItem" to="/account">Account</router-link>
     </div>
   </nav>
 </template>
@@ -37,8 +37,6 @@ export default {
 
     ...mapGetters([
       'isAuth',
-      'account',
-      'login'
     ])
 
     
