@@ -5,15 +5,15 @@ import (
 )
 
 type User struct {
-  id string
-  username string
-  email string
-  verified int
-  verify_hash string
-  is_admin int
-  is_banned int
-  last_log string
-  reg_date string
+  Id string
+  Username string
+  Email string
+  Verified int
+  Verify_hash string
+  Is_admin int
+  Is_banned int
+  Last_log string
+  Reg_date string
 }
 
 func Signup_m(mail string, login string, pass string, id string, vhash string) int {
@@ -65,7 +65,7 @@ func Userinfo_m(id string) (user User, status int) {
   }
   defer rows.Close()
   for rows.Next() {
-    err := rows.Scan(&user.id, &user.username, &user.email, &user.verified, &user.verify_hash, &user.is_admin, &user.is_banned, &user.last_log, &user.reg_date)
+    err := rows.Scan(&user.Id, &user.Username, &user.Email, &user.Verified, &user.Verify_hash, &user.Is_admin, &user.Is_banned, &user.Last_log, &user.Reg_date)
     if (err != nil) {
       return user, 500
     }
