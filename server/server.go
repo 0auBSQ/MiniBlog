@@ -66,6 +66,14 @@ func main() {
     w.WriteHeader(status)
   }).Methods("POST")
 
+  r.HandleFunc("/api/logout", func(w http.ResponseWriter, r *http.Request) {
+    // Delete session cookie by putting a past date
+    expiration := time.Now().Add(-3 * 24 * time.Hour)
+    cookie := http.Cookie{Name: "session_token", Value: "", Expires: expiration, HttpOnly: true}
+    http.SetCookie(w, &cookie)
+    w.WriteHeader(200)
+  }).Methods("GET")
+
   r.HandleFunc("/api/is_auth", func(w http.ResponseWriter, r *http.Request) {
     cookie, err := r.Cookie("session_token")
     if (err != nil) {
