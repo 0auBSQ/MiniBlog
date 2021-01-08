@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-//import store from "../store";
+import store from "../store";
 import Home from "../views/Home.vue";
 import AccountInfo from "../views/AccountInfo.vue";
 import Admin from "../views/Admin.vue";
@@ -8,21 +8,6 @@ import Admin from "../views/Admin.vue";
 Vue.use(VueRouter);
 
 
-/*const isNotAuth = (to, from, next) => {
-    if(store.getters.isAuth){
-        next()
-        return
-    }
-    next("/account")
-}*/
-
-/*const isAuth = (to, from, next) => {
-    if(store.getters.isAuth) {
-        next()
-        return
-    }
-    next("/login")
-}*/
 
 const routes = [
     {
@@ -102,7 +87,7 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 });
-/*
+
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
      
@@ -133,7 +118,7 @@ router.beforeEach((to, from, next) => {
     } else {
       next() 
     }
-})*/
+})
 
 
 

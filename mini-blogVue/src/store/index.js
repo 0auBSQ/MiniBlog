@@ -13,7 +13,7 @@ export default new Vuex.Store({
     },
     getters: {
         isAuth: async function (state)  {
-
+            
             const url = 'http://localhost:8888/api/is_auth/user'
 
             await axios.get(url, {withCredentials: true})
@@ -26,7 +26,7 @@ export default new Vuex.Store({
             .catch(err => {
                 
                 if(err && err.response && err.response.status){
-                    if (err.response.status === 404){
+                    if (err.response.status === 401){
                         state.status = "The requested account doesn't exist";
                     }
                     else if (err.response.status === 500)
@@ -50,7 +50,7 @@ export default new Vuex.Store({
             .catch(err => {
                 
                 if(err && err.response && err.response.status){
-                    if (err.response.status === 404){
+                    if (err.response.status === 401){
                         state.status = "The requested account doesn't exist";
                     }
                     else if (err.response.status === 500)

@@ -22,7 +22,9 @@
                 </form>
             </div>
             <hr class="sep">
+
             <comment v-for="comment in comments" :key="comment.Id" :user="comment.Author" :content="comment.Contents" :date="comment.Creation_date" :id="0"></comment>
+
         </div>
     </div>
 </template>
@@ -48,6 +50,7 @@ export default {
 
           const url = 'http://localhost:8888/api/comment/fetch/'+ this.$route.params.id
           const art = 'http://localhost:8888/api/article/read/'+ this.$route.params.id
+
           console.log(url)
           console.log(art)
 
@@ -87,6 +90,7 @@ export default {
               else
                 this.error = err.message;
             }
+
           })
 
     },
