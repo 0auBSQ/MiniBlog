@@ -54,6 +54,7 @@ export default new Vuex.Store({
                 if (res.status == 200){
                     state.status = "success"
                     state.admin = true
+                    state.user = true
                     return true
                 }
             })
