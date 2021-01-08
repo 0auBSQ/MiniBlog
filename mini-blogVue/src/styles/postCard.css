@@ -2,8 +2,6 @@
   padding: 3rem;
   overflow: hidden;
   background-size: cover;
-  -webkit-filter: grayscale(30%);
-          filter: grayscale(30%);
   cursor: pointer;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -18,6 +16,11 @@
   -webkit-box-flex: 2;
       -ms-flex-positive: 2;
           flex-grow: 2;
+}
+
+.containerPost::before {
+  -webkit-filter: grayscale(30%);
+          filter: grayscale(30%);
 }
 
 .author {
