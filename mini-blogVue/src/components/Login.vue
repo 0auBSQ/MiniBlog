@@ -42,7 +42,7 @@ export default {
     log: async function () {
       const url = 'http://localhost:8888/api/login'
 
-      await this.axios.post(url + "?email=" + this.email + "&password=" + this.password, {})
+      await this.axios.post(url + "?email=" + this.email + "&password=" + this.password, {withCredentials: true, headers: { crossDomain: true, 'Content-Type': 'application/json' }})
         .then(res => {
           if (res.status == 200){
             this.$store.commit('authSuccess')
@@ -51,11 +51,11 @@ export default {
         })
         .catch(err => {
           
-          if(err && err.response && err.reponse.status){
+          if(err && err.response && err.response.status){
           if (err.response.status === 404){
             this.error = "The requested account doesn't exist";
           }
-          else if (err.reponse.status === 500)
+          else if (err.response.status === 500)
             this.error = "Internal server error";
           else
             this.error = err.message;

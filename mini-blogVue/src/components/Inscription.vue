@@ -78,10 +78,10 @@ export default {
         })
         .catch(err => {
           console.log(err)
-          if(err && err.response && err.reponse.status){
+          if(err && err.response && err.response.status){
             if (err.response.status === 400)
               this.error = "Invalid information";
-            else if (err.reponse.status === 500)
+            else if (err.response.status === 500)
               this.error = "Internal server error";
             else
               this.error = err.message;

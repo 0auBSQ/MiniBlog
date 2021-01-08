@@ -26,11 +26,11 @@ export default new Vuex.Store({
             })
             .catch(err => {
                 
-                if(err && err.response && err.reponse.status){
+                if(err && err.response && err.response.status){
                     if (err.response.status === 404){
                         state.status = "The requested account doesn't exist";
                     }
-                    else if (err.reponse.status === 500)
+                    else if (err.response.status === 500)
                         state.status = "Internal server error";
                     else
                         state.status = err.message;
