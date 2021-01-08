@@ -2,6 +2,7 @@ package models
 
 import (
   u "../utils"
+  "log"
 )
 
 type Article struct {
@@ -36,14 +37,16 @@ func ArticleDelete_m(aid string) int {
 func ArticleRead_m(aid string) (art Article, status int) {
   db = Db_m()
   status = 404
-  rows, err := db.Query("SELECT a.id, uid, titre, contents, img_link, creation_date, u.login FROM articles a INNER JOIN users u ON a.uid = u.id WHERE a.id=$1", aid)
+  rows, err := db.Query("SELECT a.id, uid, titre, contents, img_link, creation_date, u.username FROM articles a INNER JOIN users u ON a.uid = u.id WHERE a.id=$1", aid)
   if (err != nil) {
+    log.Println(err)
     return art, 500
   }
   defer rows.Close()
   for rows.Next() {
     err := rows.Scan(&art.Id, &art.Uid, &art.Title, &art.Contents, &art.Img_link, &art.Creation_date, &art.Author)
     if (err != nil) {
+      log.Println(err)
       return art, 500
     }
     status = 200
@@ -59,17 +62,19 @@ func ArticleGetOwner_m(aid string) (string, int) {
 func ArticleFetch_m() (arts []Article, status int) {
   db = Db_m()
   var art Article
-  rows, err := db.Query("SELECT a.id, uid, titre, contents, img_link, creation_date, u.login FROM articles a INNER JOIN users u ON a.uid = u.id")
+  rows, err := db.Query("SELECT a.id, uid, titre, contents, img_link, creation_date, u.username FROM articles a INNER JOIN users u ON a.uid = u.id")
   if (err != nil) {
+    log.Println(err)
     return arts, 500
   }
   defer rows.Close()
   for rows.Next() {
     err := rows.Scan(&art.Id, &art.Uid, &art.Title, &art.Contents, &art.Img_link, &art.Creation_date, &art.Author)
     if (err != nil) {
+      log.Println(err)
       return arts, 500
     }
     arts = append(arts, art)
   }
-  return arts, status
+  return arts, 200
 }

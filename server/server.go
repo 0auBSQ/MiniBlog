@@ -1,7 +1,6 @@
 package main
 
 import (
-  //psql "github.com/jackc/pgx"
   "github.com/gorilla/mux"
   "github.com/gorilla/handlers"
   "net/http"
@@ -13,7 +12,7 @@ import (
   u "./utils"
   "io"
   "strconv"
-  //"encoding/json"
+  "encoding/json"
 )
 
 type Register struct {
@@ -36,6 +35,38 @@ func main() {
   r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
     w.WriteHeader(http.StatusOK)
     fmt.Fprintf(w, "Hello world")
+  }).Methods("GET")
+
+  // Articles Routes
+
+  r.HandleFunc("/api/article/read/{aid}", func(w http.ResponseWriter, r *http.Request) {
+    vars := mux.Vars(r)
+    cookie, err := r.Cookie("session_token")
+    token := ""
+    if (err == nil) {
+      token = cookie.Value
+    }
+    art, status := c.ArticleRead_c(token, vars["aid"])
+    js, err := json.Marshal(art)
+    if (err != nil) {
+      http.Error(w, err.Error(), http.StatusInternalServerError)
+      return
+    }
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(status)
+    w.Write(js)
+  }).Methods("GET")
+
+  r.HandleFunc("/api/article/fetch", func(w http.ResponseWriter, r *http.Request) {
+    arts, status := c.ArticleFetch_c()
+    js, err := json.Marshal(arts)
+    if (err != nil) {
+      http.Error(w, err.Error(), http.StatusInternalServerError)
+      return
+    }
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(status)
+    w.Write(js)
   }).Methods("GET")
 
   // Auth Routes
@@ -80,7 +111,7 @@ func main() {
     w.WriteHeader(200)
   }).Methods("GET")
 
-  r.HandleFunc("/api/is_auth", func(w http.ResponseWriter, r *http.Request) {
+  r.HandleFunc("/api/is_auth/{type}", func(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
     cookie, err := r.Cookie("session_token")
     if (err != nil) {
@@ -89,7 +120,7 @@ func main() {
     } else {
       token := cookie.Value
       admin, status := c.Isauth_c(token)
-      if (vars["request_admin_access"] == "yes" && admin == 0) {
+      if (vars["type"] == "admin" && admin == 0) {
         status = 401
       }
       w.WriteHeader(status)
