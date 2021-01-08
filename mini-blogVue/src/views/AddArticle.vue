@@ -30,21 +30,21 @@ export default {
         }
     },
     methods: {
-        
+
         async add () {
             var date = new Date()
             this.createDate = date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear()
-            
+
             const url = 'http://localhost:8888/api/article/create'
 
-            await this.axios.post(url, {})
+            await this.axios.post(url, {withCredentials: true})
             .then(res => {
                 if (res.status == 200){
                     console.log("test")
                 }
             })
             .catch(err => {
-                
+
                 if(err && err.response && err.response.status){
                 if (err.response.status === 404){
                     this.error = "The requested account doesn't exist";
@@ -54,7 +54,7 @@ export default {
                 else
                     this.error = err.message;
                 }
-            })    
+            })
         }
     }
 }

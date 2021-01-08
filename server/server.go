@@ -15,12 +15,6 @@ import (
   "encoding/json"
 )
 
-type Register struct {
-  Email string
-  Username string
-  Password string
-}
-
 func main() {
   r := mux.NewRouter()
 
@@ -82,6 +76,7 @@ func main() {
   r.HandleFunc("/api/comment/update", func(w http.ResponseWriter, r *http.Request) {
     cookie, err := r.Cookie("session_token")
     if (err != nil) {
+      log.Println(err)
       w.WriteHeader(401)
     } else {
       token := cookie.Value
@@ -135,10 +130,14 @@ func main() {
 
   r.HandleFunc("/api/article/create", func(w http.ResponseWriter, r *http.Request) {
     cookie, err := r.Cookie("session_token")
+    log.Println(cookie)
+    log.Println(err)
     if (err != nil) {
+      log.Println(err)
       w.WriteHeader(401)
     } else {
       token := cookie.Value
+      log.Println(token)
       aid, status := c.ArticleCreate_c(token, r.FormValue("title"), r.FormValue("content"), r.FormValue("img_link"))
       js, err := json.Marshal(aid)
       if (err != nil) {
@@ -174,8 +173,6 @@ func main() {
   r.HandleFunc("/api/register", func(w http.ResponseWriter, r *http.Request) {
     status := c.Signup_c(r.FormValue("email"), r.FormValue("login"), r.FormValue("password"))
     w.WriteHeader(status)
-    //fmt.Fprintf(w, "\n%v", c.Signup_c("test@test.acc", "test", vars["name"]))
-    //io.WriteString(w, "LIDL")
   }).Methods("POST")
 
   r.HandleFunc("/api/login", func(w http.ResponseWriter, r *http.Request) {
@@ -184,11 +181,14 @@ func main() {
       expiration := time.Now().Add(3 * 24 * time.Hour)
       cookie := http.Cookie{Name: "session_token", Value: token, Expires: expiration, HttpOnly: true}
       cookie_admin := http.Cookie{Name: "status", Value: strconv.Itoa(admin), Expires: expiration}
+      w.Header().Set("Access-Control-Allow-Credentials", "true")
       http.SetCookie(w, &cookie)
       http.SetCookie(w, &cookie_admin)
+    } else {
+      w.Header().Set("Access-Control-Allow-Credentials", "true")
     }
     w.WriteHeader(status)
-  }).Methods("POST")
+  }).Methods("GET")
 
   r.HandleFunc("/api/logout", func(w http.ResponseWriter, r *http.Request) {
     // Delete session cookie by putting a past date
