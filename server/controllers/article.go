@@ -27,9 +27,11 @@ func ArticleRead_c(token string, aid string) (m.Article, int) {
   // Get article object from database (no authentification needed)
   art, status := m.ArticleRead_m(aid)
   // Check if article is owned (to allow Delete method front-side), token is not mandatory to read it
-  id, _ := u.DesDecrypt(token)
-  if (id == art.Uid) {
-    art.Owned = 1
+  if (token != "") {
+    id, _ := u.DesDecrypt(token)
+    if (id == art.Uid) {
+      art.Owned = 1
+    }
   }
   return art, status
 }
