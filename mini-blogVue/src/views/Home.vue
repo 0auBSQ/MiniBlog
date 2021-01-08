@@ -17,6 +17,7 @@
             
           </div>
         </div>
+        <button class="bouton1" @click="goAdd">+</button>
     </div>
 </template>
 <script>
@@ -59,9 +60,8 @@ export default {
     PostCard,
   },
   methods: {
-        goArticle: (id) => {
-            console.log(id)
-            this.$router.push(`/article/${id}`)
+        goAdd () {
+            this.$router.push('/addarticle')
         },
         
   }

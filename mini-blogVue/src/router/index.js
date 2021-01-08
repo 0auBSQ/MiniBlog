@@ -35,7 +35,7 @@ const routes = [
         path: "/login",
         name: "LoginPage",
         component: () => import("../views/LoginPage.vue"),
-        //beforeEnter: isNotAuth
+        
     },
     {
         path: "/register",
@@ -55,7 +55,6 @@ const routes = [
     {
         path: '/account',
         component : () => import("../views/Account.vue"),
-        //beforeEnter: isAuth,
         meta: { requiresAuth: true },
         children: [{
             path: 'userinfo',
@@ -74,6 +73,20 @@ const routes = [
         name: 'article',
         component: () => import("../views/Post.vue"),
         props: true
+    },
+    {
+        path: '/addarticle',
+        name: 'addarticle',
+        component: () => import("../views/AddArticle.vue"),
+        meta: { requiresAdmin: true },
+        
+    },
+    {
+        path: '/editArticle',
+        name: 'editArticle',
+        component: () => import("../views/EditArticle.vue"),
+        meta: { requiresAdmin: true },
+
     },
     {
         path: "*",
@@ -103,5 +116,23 @@ router.beforeEach((to, from, next) => {
       next() 
     }
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAdmin)) {
+     
+      if (!store.getters.isAdmin) {
+        next({
+          path: '/',
+          query: { redirect: to.fullPath }
+        })
+      } else {
+        next()
+      }
+    } else {
+      next() 
+    }
+})
+
+
 
 export default router;
