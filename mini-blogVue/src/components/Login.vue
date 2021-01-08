@@ -42,7 +42,7 @@ export default {
     log: async function () {
       const url = 'http://localhost:8888/api/login'
 
-      await this.axios.post(url + "?email=" + this.email + "&password=" + this.password, {withCredentials: true, headers: { crossDomain: true, 'Content-Type': 'application/json' }})
+      await this.axios.post(url + "?email=" + this.email + "&password=" + this.password, {withCredentials: true})
         .then(res => {
           if (res.status == 200){
             this.$store.commit('authSuccess')

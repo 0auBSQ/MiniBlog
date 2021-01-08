@@ -61,4 +61,26 @@
   width: 15vw;
   margin-left: 1vw;
 }
+
+.bouton1 {
+  margin-bottom: 1em;
+  position: fixed;
+  bottom: 0;
+  right: 47.5vw;
+  z-index: 1;
+  width: 85px;
+  height: 85px;
+  background: #e5b31b;
+  border-radius: 50%;
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 35px;
+  outline: none;
+}
+
+.bouton1:hover {
+  -webkit-box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.75);
+          box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.75);
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
 /*# sourceMappingURL=home.css.map */
