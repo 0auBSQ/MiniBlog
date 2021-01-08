@@ -17,7 +17,9 @@
 
           </div>
         </div>
+
         <button v-if="statusAdmin == true" class="bouton1" @click="goAdd">+</button>
+
     </div>
 </template>
 <script>
