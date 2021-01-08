@@ -74,3 +74,9 @@ func Userinfo_m(id string) (user User, status int) {
   }
   return user, status
 }
+
+func HandleBan_m(id string) int {
+  db = Db_m()
+  _, err := db.Exec("UPDATE users SET is_banned=1 WHERE id=$1;", id)
+  return (u.CheckErr(err, 200))
+}

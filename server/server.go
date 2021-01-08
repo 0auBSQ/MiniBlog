@@ -221,6 +221,18 @@ func main() {
     }
   }).Methods("GET")
 
+  r.HandleFunc("/api/ban/{uid}", func(w http.ResponseWriter, r *http.Request) {
+    vars := mux.Vars(r)
+    cookie, err := r.Cookie("session_token")
+    if (err != nil) {
+      w.WriteHeader(401)
+    } else {
+      token := cookie.Value
+      status := c.HandleBan_c(token, vars["uid"])
+      w.WriteHeader(status)
+    }
+  }).Methods("PATCH")
+
   fmt.Printf("Launched on port 8888\n")
   log.Fatal(http.ListenAndServe(":8888", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "PATCH", "DELETE", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(r)))
 

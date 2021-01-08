@@ -2,6 +2,7 @@ package controllers
 
 import (
   u "../utils"
+  m "../models"
 )
 
 func UserRights(token string) (string, bool) {
@@ -20,4 +21,16 @@ func AdminRights(token string) (string, bool) {
     return id, true
   }
   return "", false
+}
+
+func HandleBan_c(token string, uid string) int {
+  // Only admins can ban weak chums
+  _, admin := AdminRights(token)
+  if (admin == false) {
+    return 401
+  }
+
+  // Drops the ban hammer
+  status := m.HandleBan_m(uid)
+  return status
 }
