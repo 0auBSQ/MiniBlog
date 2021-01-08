@@ -1,16 +1,15 @@
 <template>
     <div class="postContainer">
         <div class="header">
-            <h1 class="titre">Mon article</h1>
-            <h3 class="author"><i>Author 1</i></h3>
-            <h4 class="date">16/09/2020</h4>
+            <img :src="article.Img_link" class="topart" />
+            <br />
+            <h1 class="titre">{{article.Title}}</h1>
+            <h3 class="author"><i>{{article.Author}}</i></h3>
+            <h4 class="date">{{article.Creation_date.split("T")[0]}}</h4>
         </div>
         <div class="content">
             <p class="text" >
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Ullam autem voluptatem quam iusto perspiciatis dolor aspernatur,
-                corrupti nesciunt natus voluptatum beatae sint placeat incidunt
-                cumque porro voluptas adipisci? Odio, omnis.
+                {{article.Contents}}
             </p>
         </div>
         <div class="commentSec">
@@ -23,7 +22,7 @@
                 </form>
             </div>
             <hr class="sep">
-            <comment v-for="comment in comments" :key="comment.Id" :user="comment.Author" :content="comment.Contents" :date="comment.Creation_date" :id="comment.id"></comment>
+            <comment v-for="comment in comments" :key="comment.Id" :user="comment.Author" :content="comment.Contents" :date="comment.Creation_date" :id="0"></comment>
         </div>
     </div>
 </template>
@@ -41,7 +40,8 @@ export default {
     },
     data () {
         return {
-            comments: []
+            comments: [],
+            article : {}
         }
     },
     created: async function() {
@@ -50,6 +50,26 @@ export default {
           const art = 'http://localhost:8888/api/article/read/'+ this.$route.params.id
           console.log(url)
           console.log(art)
+
+          await this.axios.get(art, {})
+          .then(res => {
+            if (res.status == 200){
+              this.article = res.data
+              console.log(res.data)
+            }
+          })
+          .catch(err => {
+            if(err && err.response && err.response.status){
+              if (err.response.status === 404){
+                this.error = "The requested article doesn't exist";
+              }
+              else if (err.response.status === 500)
+                this.error = "Internal server error";
+              else
+                this.error = err.message;
+            }
+          })
+
 
           await this.axios.get(url, {})
           .then(res => {
