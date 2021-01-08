@@ -2,7 +2,7 @@
     <div class="homeContainer">
         
         <div class="postContainer">
-          <postCard class="card" :style="{ backgroundImage: 'url(' + article.link + ')'}" v-for="article in articleList" :key="article.Id" v-bind:title="article.Title" v-bind:author="article.Author" v-bind:id="article.Id"></postCard>
+          <postCard class="card" :style="{ backgroundImage: 'url(' + article.link + ')'}" v-for="article in articleList" :key="article.Id" :title="article.Title" :author="article.Author" :id="article.Id"></postCard>
         </div>
         <div class="aside">
           <div class="search">
@@ -17,11 +17,13 @@
             
           </div>
         </div>
-        <button class="bouton1" @click="goAdd">+</button>
+        <button v-if="isAdmin == true" class="bouton1" @click="goAdd">+</button>
     </div>
 </template>
 <script>
 import PostCard from "../components/PostCard.vue"
+import { mapGetters } from 'vuex'
+
 
 export default {
   name: 'Home',
@@ -63,6 +65,11 @@ export default {
   },
   created () {
     this.getData()
+  },
+  computed: {
+    ...mapGetters(
+      'isAdmin'
+    )
   }
 }
 </script>

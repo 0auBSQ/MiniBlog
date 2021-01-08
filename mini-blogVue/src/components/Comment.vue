@@ -1,6 +1,6 @@
 <template>
     <div class="commentContainer">
-        <button class="del" @click="this.delete">X</button>
+        <button v-if="isAdmin" class="del" @click="this.delete">X</button>
         <div class="commentHeader">
             <h4 class="user"> {{user}}</h4>
             
@@ -15,6 +15,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
+
 export default {
     name: "Comment",
     props: {
@@ -46,6 +49,11 @@ export default {
             }
           })    
         }
+    },
+    computed: {
+        ...toString(
+            'isAdmin'
+        )
     }
 }
 </script>

@@ -36,7 +36,7 @@ export default {
             var date = new Date()
             this.createDate = date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear()
             
-            const url = 'http://localhost:8888/api/article/fetch'
+            const url = 'http://localhost:8888/api/article/create'
 
             await this.axios.post(url, {})
             .then(res => {

@@ -104,7 +104,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
      
-      if (!store.getters.isAuth) {
+      if (store.getters.isAuth != true) {
         next({
           path: '/login',
           query: { redirect: to.fullPath }
@@ -120,7 +120,7 @@ router.beforeEach((to, from, next) => {
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAdmin)) {
      
-      if (!store.getters.isAdmin) {
+      if (store.getters.isAdmin != true) {
         next({
           path: '/',
           query: { redirect: to.fullPath }

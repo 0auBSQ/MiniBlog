@@ -15,6 +15,13 @@
         </div>
         <div class="commentSec">
             <h3 class="commentTitle">Comments</h3>
+            <div v-if="isAuth == true" class="writeCom">
+                <form class="com">
+                    <label for="">Leave a comment</label>
+                    <textarea type="text" class="cominput"></textarea>
+                    <button type="submit">Comment</button>
+                </form>
+            </div>
             <hr class="sep">
             <comment v-for="comment in comments" :key="comment.id" :user="comment.user" :content="comment.content" :date="comment.date" :id="comment.id"></comment>
         </div>
@@ -23,6 +30,8 @@
 
 <script>
 import Comment from "../components/Comment.vue"
+import { mapGetters } from 'vuex'
+
 
 
 export default {
@@ -64,9 +73,17 @@ export default {
             ]
         }
     },
-    created: {
-        
-    }
+    created: function() {
+        console.log(this.isAuth)
+    },
+    computed: {
+
+    ...mapGetters([
+      'isAuth',
+    ])
+
+    
+  }
 }
 
 </script>
