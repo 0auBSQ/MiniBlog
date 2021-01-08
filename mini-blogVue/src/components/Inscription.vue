@@ -27,6 +27,7 @@ export default {
   data () {
     return {
       errors: [],
+      error: null,
       userName: null,
       email: null,
       confemail: null,
@@ -63,18 +64,29 @@ export default {
       return re.test(email);
     },
     register: async function () {
-      //const regist = { email: this.email, login: this.userName, password: this.password }
-      //const url = '127.0.0.1:8888/api/register'
-      
-      try {
-        //const res = await this.axios.post(url, {regist}).then(res => res.data)
-        //this.res = res.data
-        
-        this.$router.push({path: '/login'})
-        
-      } catch(err){
-        this.error = err.message
-      }
+      const auth = { email: this.email, password: this.password }
+      const url = '/register'
+
+      console.log(auth);
+      await this.axios.post(url + "?email=" + this.email + "&login=" + this.userName + "&password=" + this.password, {})
+        .then(res => {
+          if (res.status == 200){
+            
+            this.$router.push({path: '/login'})
+          }
+          console.log(res.status);
+        })
+        .catch(err => {
+          console.log(err)
+          if(err && err.response && err.reponse.status){
+            if (err.response.status === 404)
+              this.error = "The requested account doesn't exist";
+            else if (err.reponse.status === 500)
+              this.error = "Internal server error";
+            else
+              this.error = err.message;
+          }
+        })
     }
   }
 };

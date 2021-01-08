@@ -1,12 +1,11 @@
 <template>
-    <div class="containerPost">
+    <div class="containerPost" @click="goArticle(id)">
         <div class="postTitle">
             <h1>{{title}}</h1>
         </div>
         <div class="author">
             <p>{{author}}</p>
         </div>
-        <router-link :to="{ path: `/article/${id}` }"><i>See more...</i></router-link>
     </div>
 </template>
 
@@ -17,6 +16,12 @@ export default {
         title: String,
         author: String,
         id: Number
+    },
+    methods: {
+        goArticle(id) {
+            console.log(id)
+            this.$router.push(`/article/${id}`)
+        }
     }
 
 }

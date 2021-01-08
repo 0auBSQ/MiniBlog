@@ -58,10 +58,13 @@ export default {
   components: {
     PostCard,
   },
-  created: {
-
+  methods: {
+        goArticle: (id) => {
+            console.log(id)
+            this.$router.push(`/article/${id}`)
+        },
+        
   }
-
 }
 </script>
 

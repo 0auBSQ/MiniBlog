@@ -17,7 +17,6 @@
 
 <script>
 import { mapMutations } from 'vuex'
-//import file from "../API/api"
 
 export default {
   name: "login",
@@ -41,26 +40,27 @@ export default {
   },
   methods: {
     log: async function () {
-      const auth = { email: this.email, password: this.password }
       const url = '/login'
 
-      console.log(auth);
       await this.axios.post(url + "?email=" + this.email + "&password=" + this.password, {})
         .then(res => {
           if (res.status == 200){
             this.$store.commit('authSuccess')
             this.$router.push({path: '/account'})
           }
-          console.log(res.status);
         })
         .catch(err => {
-          if (err.response.status === 404)
+          
+          if(err && err.response && err.reponse.status){
+          if (err.response.status === 404){
             this.error = "The requested account doesn't exist";
+          }
           else if (err.reponse.status === 500)
             this.error = "Internal server error";
           else
             this.error = err.message;
-        })
+          }
+        })    
     }
   }
 }

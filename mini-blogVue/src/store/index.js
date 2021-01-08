@@ -1,53 +1,51 @@
 import Vue from "vue"
-//import axios from 'axios'
 import Vuex from 'vuex'
-
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 
 Vue.use(Vuex)
+Vue.use(VueAxios,axios)
 
 export default new Vuex.Store({
     state: {
         status: '',
+        isAdmin: false
     },
     getters: {
-        isAuth: (state)/*state*/ => {
-            
-            if(state.status == "success") return true
-            else return false
+        isAuth: async function (state)  {
 
-            /*const is_auth = { }
-            const url = '127.0.0.1:8888/api/is_auth'
-      
-            try {
-                const res = await this.axios.get(url, {auth}).then(res => res.data)
-                if(res.status == 200){
+            const url = 'http://localhost:8888/api/is_auth'
+
+            await axios.post(url, {})
+            .then(res => {
+                if (res.status == 200){
+                    state.status = "success"
                     return true
                 }
-                else return false
+            })
+            .catch(err => {
                 
-            } catch(err){
-                state.status = err.message
-            }*/
-
-            //!!state.token,
+                if(err && err.response && err.reponse.status){
+                    if (err.response.status === 404){
+                        state.status = "The requested account doesn't exist";
+                    }
+                    else if (err.reponse.status === 500)
+                        state.status = "Internal server error";
+                    else
+                        state.status = err.message;
+                }
+            })
         },
         authStatus: state => state.status,
         
     },
     mutations: {
-        authRequest: (state) => {
-            state.status = 'loading'
-        },
+        
         authSuccess : (state) => {
             state.status = 'success'
-        },
-        authError: (state) => {
-            state.status = 'error'
-        },
-        authLogOut: (state) => {
-            state.token = ''
         }
+        
     },
     actions: {
         

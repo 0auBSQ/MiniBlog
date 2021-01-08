@@ -16,12 +16,12 @@
             </div>
             <hr/>
             <div class="field">
-                <label>Register Date</label>
+                <label>Register Date: </label>
                 <p>{{registerDate}}</p>
             </div>
             <hr/>
             <div class="field">
-                <label>Last login Date</label>
+                <label>Last login Date: </label>
                 <p>{{lastloginDate}}</p>
             </div>
             <!--<hr/>
@@ -50,8 +50,8 @@ export default {
     data () {
         return {
             firstName: null,
-            lastname: null,
-            username: null,
+            lastName: null,
+            userName: null,
             registerDate: null,
             gender: null,
             dateBirth: null,
