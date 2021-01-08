@@ -2,9 +2,8 @@
     <div class="commentContainer">
         <button v-if="isAdmin" class="del" @click="this.delete">X</button>
         <div class="commentHeader">
-            <h4 class="user"> {{user}}</h4>
+            <h4 class="user">{{user}}</h4>
             
-            <p class="dateComment"><i> - {{date}}</i></p>
         </div>
         <div class="thecomment">
             <p>
@@ -28,12 +27,12 @@ export default {
     },
     methods: {
         async delete () {
-            const url = 'http://localhost:8888/api/article/fetch'
+            const url = 'http://localhost:8888/api/comment/fetch'
 
             await this.axios.post(url, {})
             .then(res => {
             if (res.status == 200){
-              this.articleList.push(res.data)
+                console.log("test")
             }
             })
             .catch(err => {
@@ -51,7 +50,7 @@ export default {
         }
     },
     computed: {
-        ...toString(
+        ...mapGetters(
             'isAdmin'
         )
     }

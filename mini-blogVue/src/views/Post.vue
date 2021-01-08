@@ -73,8 +73,30 @@ export default {
             ]
         }
     },
-    created: function() {
-        console.log(this.isAuth)
+    created: async function() {
+       
+          const url = 'http://localhost:8888/api/article/read/'+ this.$route.params.id
+          console.log(url)
+
+          await this.axios.get(url, {})
+          .then(res => {
+            if (res.status == 200){
+              this.comments.push(res.data)
+            }
+          })
+          .catch(err => {
+            
+            if(err && err.response && err.response.status){
+              if (err.response.status === 404){
+                this.error = "The requested account doesn't exist";
+              }
+              else if (err.response.status === 500)
+                this.error = "Internal server error";
+              else
+                this.error = err.message;
+            }
+          })    
+        
     },
     computed: {
 
