@@ -69,20 +69,56 @@ func main() {
     w.Write(js)
   }).Methods("GET")
 
+  r.HandleFunc("/api/article/delete", func(w http.ResponseWriter, r *http.Request) {
+    cookie, err := r.Cookie("session_token")
+    if (err != nil) {
+      w.WriteHeader(401)
+    } else {
+      token := cookie.Value
+      _, status := c.ArticleDelete_c(r.FormValue("aid"), token)
+      w.WriteHeader(status)
+    }
+  }).Methods("DELETE")
+
+  r.HandleFunc("/api/article/create", func(w http.ResponseWriter, r *http.Request) {
+    cookie, err := r.Cookie("session_token")
+    if (err != nil) {
+      w.WriteHeader(401)
+    } else {
+      token := cookie.Value
+      aid, status := c.ArticleCreate_c(token, r.FormValue("title"), r.FormValue("content"), r.FormValue("img_link"))
+      js, err := json.Marshal(aid)
+      if (err != nil) {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+      }
+      w.Header().Set("Content-Type", "application/json")
+      w.WriteHeader(status)
+      w.Write(js)
+    }
+  }).Methods("POST")
+
+  r.HandleFunc("/api/article/update", func(w http.ResponseWriter, r *http.Request) {
+    cookie, err := r.Cookie("session_token")
+    if (err != nil) {
+      w.WriteHeader(401)
+    } else {
+      token := cookie.Value
+      aid, status := c.ArticleUpdate_c(r.FormValue("aid"), token, r.FormValue("title"), r.FormValue("content"), r.FormValue("img_link"))
+      js, err := json.Marshal(aid)
+      if (err != nil) {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+      }
+      w.Header().Set("Content-Type", "application/json")
+      w.WriteHeader(status)
+      w.Write(js)
+    }
+  }).Methods("PATCH")
+
   // Auth Routes
 
   r.HandleFunc("/api/register", func(w http.ResponseWriter, r *http.Request) {
-    /*vars := mux.Vars(r)
-    w.WriteHeader(http.StatusOK)
-    info := Register{"test@test.acc", "test", vars["name"]}
-    js, err := json.Marshal(info)
-    if err != nil {
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-      return
-    }
-    w.Header().Set("Content-Type", "application/json")
-    w.Write(js)*/
-
     status := c.Signup_c(r.FormValue("email"), r.FormValue("login"), r.FormValue("password"))
     w.WriteHeader(status)
     //fmt.Fprintf(w, "\n%v", c.Signup_c("test@test.acc", "test", vars["name"]))
@@ -133,6 +169,6 @@ func main() {
   }).Methods("GET")
 
   fmt.Printf("Launched on port 8888\n")
-  log.Fatal(http.ListenAndServe(":8888", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(r)))
+  log.Fatal(http.ListenAndServe(":8888", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "PATCH", "DELETE", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(r)))
 
 }
