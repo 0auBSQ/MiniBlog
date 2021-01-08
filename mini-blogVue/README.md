@@ -80,7 +80,7 @@ npm run build
 npm run lint
 ```
 
-## Solutions techniques
+## Technical solutions
 ### Vue
 For the front-end we chose to use Vue js for the many advantages it provides, first of all it is a Js framework which allows a simpler and faster development, moreover, this project is dedicated to evolving after the render date, therefore, using a Js framework that breaks down the application into many independent components makes maintaining and improving the latter much easier.
 
@@ -99,10 +99,10 @@ We used Axios to make the http requests
 ### SASS
 To simplify and accelerate the development of the visuals of our application we have used the SASS preprocessor
 
-## Les dificultées
+## The difficulties
 The main difficulty on the front-end side was to create an application with a good UX and a good UI, having never had any real training in this area, we are going to develop these points, we can add to that, AXIOS and its PROMISE system.
 
-## Les prochains ajouts
+## The next features
 -The next changes will mainly focus on visual bugs in order to obtain a perfectly stable application.
 -To adjust the displays correctly in order to fix bugs for mobile devices.
 -To consider the use of PWA technologies.
