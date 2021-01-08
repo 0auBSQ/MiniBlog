@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from "../store";
+//import store from "../store";
 import Home from "../views/Home.vue";
 import AccountInfo from "../views/AccountInfo.vue";
 import Admin from "../views/Admin.vue";
@@ -82,10 +82,12 @@ const routes = [
         
     },
     {
-        path: '/editArticle',
+        path: '/editArticle/:id',
         name: 'editArticle',
         component: () => import("../views/EditArticle.vue"),
         meta: { requiresAdmin: true },
+        props: true
+
 
     },
     {
@@ -100,7 +102,7 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 });
-
+/*
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
      
@@ -131,7 +133,7 @@ router.beforeEach((to, from, next) => {
     } else {
       next() 
     }
-})
+})*/
 
 
 

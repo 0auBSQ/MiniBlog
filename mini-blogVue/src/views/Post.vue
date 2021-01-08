@@ -41,41 +41,12 @@ export default {
     },
     data () {
         return {
-            comments: [
-                {
-                    id: 0,
-                    user: 'user 1',
-                    date: '13/03/09',
-                    content: "nice!"
-                },
-                {
-                    id: 1,
-                    user: 'user 1',
-                    date: '13/03/09',
-                    content: "so bad!"
-                },
-                {
-                    id: 2,
-                    date: '13/03/09',
-                    user: 'user 1',
-                    content: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-                                Ullam autem voluptatem quam iusto perspiciatis dolor aspernatur, 
-                                corrupti nesciunt natus voluptatum beatae sint placeat incidunt 
-                                cumque porro voluptas adipisci? Odio, omnis.`
-                },
-                {
-                    id: 3,
-                    date: '13/03/09',
-                    user: 'user 1',
-                    content: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-                                Ullam autem voluptatem quam iusto perspiciatis dolor aspernatur`
-                },
-            ]
+            comments: []
         }
     },
     created: async function() {
        
-          const url = 'http://localhost:8888/api/article/read/'+ this.$route.params.id
+          const url = 'http://localhost:8888/api/article/read/  '+ this.$route.params.id
           console.log(url)
 
           await this.axios.get(url, {})

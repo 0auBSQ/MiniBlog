@@ -1,6 +1,7 @@
 <template>
     <div class="commentContainer">
         <button v-if="isAdmin" class="del" @click="this.delete">X</button>
+        <button v-if="isAdmin" class="ban" @click="this.ban">Ban</button>
         <div class="commentHeader">
             <h4 class="user">{{user}}</h4>
             
@@ -27,7 +28,7 @@ export default {
     },
     methods: {
         async delete () {
-            const url = 'http://localhost:8888/api/comment/fetch'
+            const url = 'http://localhost:8888/api/comment/delete'
 
             await this.axios.post(url, {})
             .then(res => {
@@ -38,8 +39,8 @@ export default {
             .catch(err => {
             
             if(err && err.response && err.response.status){
-              if (err.response.status === 404){
-                this.error = "The requested account doesn't exist";
+              if (err.response.status === 401){
+                this.error = "Erreur";
               }
               else if (err.response.status === 500)
                 this.error = "Internal server error";
@@ -47,12 +48,15 @@ export default {
                 this.error = err.message;
             }
           })    
+        },
+        async ban () {
+
         }
     },
     computed: {
-        ...mapGetters(
-            'isAdmin'
-        )
+        ...mapGetters({
+            isAdmin: 'isAdmin'
+        })
     }
 }
 </script>

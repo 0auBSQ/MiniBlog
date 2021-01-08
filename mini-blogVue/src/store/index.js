@@ -37,7 +37,7 @@ export default new Vuex.Store({
             })
         },
         isAdmin: async function (state)  {
-
+            
             const url = 'http://localhost:8888/api/is_auth/admin'
 
             await axios.get(url + "?request_admin_access=yes", {withCredentials: true})

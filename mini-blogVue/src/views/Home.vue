@@ -67,9 +67,9 @@ export default {
     this.getData()
   },
   computed: {
-    ...mapGetters(
-      'isAdmin'
-    )
+    ...mapGetters({
+      isAdmin: 'isAdmin'
+    })
   }
 }
 </script>

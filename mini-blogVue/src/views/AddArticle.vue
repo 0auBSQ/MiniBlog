@@ -8,7 +8,6 @@
             </div>
             <div class="content">
                 <textarea v-bind="content" name="" class="body" placeholder="Your content"></textarea>
-                
             </div>
             <button type="submit">Add Article</button>
         </form>

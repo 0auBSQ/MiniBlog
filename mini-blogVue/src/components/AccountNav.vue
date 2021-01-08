@@ -42,9 +42,9 @@ export default {
     }
     },
     computed: {
-      ...mapGetters(
-        'isAdmin'
-      )
+      ...mapGetters({
+         isAdmin: 'isAdmin'
+      })
     }
 }
 </script>
