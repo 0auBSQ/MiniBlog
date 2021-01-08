@@ -44,7 +44,7 @@ Nous avons utilisé Axios pour effectuer les requêtes http
 Pour simplifier et accélérer le développement des visuels de notre application nous avons utilisé le préprocesseur SASS
 
 ## Les dificultées
-La principale difficulté coté front-end à été de créer une application avec un bon UX et un bon UI, n'ayant jamais eu de véritable formation dans ce domaine nous allons faire évoluer ces points-ci.
+La principale difficulté coté front-end à été de créer une application avec un bon UX et un bon UI, n'ayant jamais eu de véritable formation dans ce domaine nous allons faire évoluer ces points-ci, on peut ajouter à cela, AXIOS et son systeme de PROMISE.
 
 ## Les prochains ajouts
 -Les prochaines modifications porteront surtout sur les bug visuel afin d'obtenir une application parfaitement stable.
