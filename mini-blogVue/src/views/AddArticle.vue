@@ -23,12 +23,39 @@ export default {
             id: 0,
             content: "mon article",
             link: null,
-            title: "titre de mon article"
+            title: "titre de mon article",
+            createDate: null,
+            author: null,
+            owned: null,
+            uid: null,
         }
     },
     methods: {
-        add () {
+        
+        async add () {
+            var date = new Date()
+            this.createDate = date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear()
+            
+            const url = 'http://localhost:8888/api/article/fetch'
 
+            await this.axios.post(url, {})
+            .then(res => {
+                if (res.status == 200){
+                    console.log("test")
+                }
+            })
+            .catch(err => {
+                
+                if(err && err.response && err.response.status){
+                if (err.response.status === 404){
+                    this.error = "The requested account doesn't exist";
+                }
+                else if (err.response.status === 500)
+                    this.error = "Internal server error";
+                else
+                    this.error = err.message;
+                }
+            })    
         }
     }
 }

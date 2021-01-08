@@ -21,4 +21,21 @@
       -ms-flex-direction: row;
           flex-direction: row;
 }
+
+.del {
+  float: right;
+  right: 47.5vw;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  color: red;
+  font-size: 20px;
+  outline: none;
+}
+
+.del:hover {
+  background: rgba(0, 0, 0, 0);
+}
 /*# sourceMappingURL=comment.css.map */

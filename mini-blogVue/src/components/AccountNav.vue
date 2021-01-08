@@ -19,9 +19,9 @@ export default {
     },
     methods: {
         log: async function () {
-      const url = 'http://localhost:8888/api/logout'
+        const url = 'http://localhost:8888/api/logout'
 
-      await this.axios.post(url, {withCredentials: true})
+        await this.axios.post(url, {withCredentials: true})
         .then(res => {
           if (res.status == 200){
             this.$router.push({path: '/login'})

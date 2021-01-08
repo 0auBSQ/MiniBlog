@@ -14,7 +14,7 @@ export default new Vuex.Store({
     getters: {
         isAuth: async function (state)  {
 
-            const url = 'http://localhost:8888/api/is_auth'
+            const url = 'http://localhost:8888/api/is_auth/user'
 
             await axios.get(url, {withCredentials: true})
             .then(res => {
@@ -38,7 +38,7 @@ export default new Vuex.Store({
         },
         isAdmin: async function (state)  {
 
-            const url = 'http://localhost:8888/api/is_auth'
+            const url = 'http://localhost:8888/api/is_auth/admin'
 
             await axios.get(url + "?request_admin_access=yes", {withCredentials: true})
             .then(res => {

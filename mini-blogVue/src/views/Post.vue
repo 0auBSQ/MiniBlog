@@ -16,7 +16,7 @@
         <div class="commentSec">
             <h3 class="commentTitle">Comments</h3>
             <hr class="sep">
-            <comment v-for="comment in comments" :key="comment.id" v-bind:user="comment.user" v-bind:content="comment.content" v-bind:date="comment.date"></comment>
+            <comment v-for="comment in comments" :key="comment.id" :user="comment.user" :content="comment.content" :date="comment.date" :id="comment.id"></comment>
         </div>
     </div>
 </template>

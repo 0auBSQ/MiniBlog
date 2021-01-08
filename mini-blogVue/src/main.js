@@ -4,6 +4,8 @@ import App from "./App.vue";
 import store from "./store";
 import axios from "./backend";
 
+/* eslint-disable */
+
 Vue.config.productionTip = false;
 
 new Vue({

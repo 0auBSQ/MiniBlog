@@ -2,6 +2,7 @@
     <div class="containerAdmin">
         <h2>Admin</h2>
         <div class="banned">
+            <h3>Ban Machine</h3>
             <div class="user" v-for="user in users" :key="user.id">
                 <p>{{user.userName}}</p>
                 <button class="ban">Ban</button>

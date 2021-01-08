@@ -2,7 +2,7 @@
     <div class="homeContainer">
         
         <div class="postContainer">
-          <postCard class="card" v-for="article in articleList" :key="article.title" v-bind:title="article.title" v-bind:author="article.author" v-bind:id="article.id"></postCard>
+          <postCard class="card" :style="{ backgroundImage: 'url(' + article.link + ')'}" v-for="article in articleList" :key="article.Id" v-bind:title="article.Title" v-bind:author="article.Author" v-bind:id="article.Id"></postCard>
         </div>
         <div class="aside">
           <div class="search">
@@ -27,33 +27,7 @@ export default {
   name: 'Home',
   data () {
     return {
-      articleList: [
-        {
-          id: 0,
-          title: "mon incroyable article 1",
-          author: "author 1"
-        },
-        {
-          id: 1,
-          title: "mon incroyable article 2",
-          author: "author 2"
-        },
-        {
-          id: 2,
-          title: "mon incroyable article 3",
-          author: "author 3"
-        },
-        {
-          id: 3,
-          title: "mon incroyable article 4, le plus beau du monde",
-          author: "author 4"
-        },
-        {
-          id: 4,
-          title: "mon incroyable dernier article",
-          author: "author 3"
-        },
-      ]
+      articleList: []
     }
   },
   components: {
@@ -63,7 +37,32 @@ export default {
         goAdd () {
             this.$router.push('/addarticle')
         },
+        async getData () {
+          const url = 'http://localhost:8888/api/article/fetch'
+
+          await this.axios.get(url, {})
+          .then(res => {
+            if (res.status == 200){
+              this.articleList.push(res.data)
+            }
+          })
+          .catch(err => {
+            
+            if(err && err.response && err.response.status){
+              if (err.response.status === 404){
+                this.error = "The requested account doesn't exist";
+              }
+              else if (err.response.status === 500)
+                this.error = "Internal server error";
+              else
+                this.error = err.message;
+            }
+          })    
+        }
         
+  },
+  created () {
+    this.getData()
   }
 }
 </script>

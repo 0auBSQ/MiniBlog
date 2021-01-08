@@ -31,6 +31,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-top: 2em;
 }
 
 .user {
@@ -45,6 +46,11 @@
 }
 
 .user p {
-  margin-right: 1em;
+  margin-right: 5em;
+  margin-top: 1.5em;
+}
+
+.user .ban {
+  outline: none;
 }
 /*# sourceMappingURL=admin.css.map */
