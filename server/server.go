@@ -57,6 +57,39 @@ func main() {
     w.Write(js)
   }).Methods("GET")
 
+  r.HandleFunc("/api/comment/delete", func(w http.ResponseWriter, r *http.Request) {
+    cookie, err := r.Cookie("session_token")
+    if (err != nil) {
+      w.WriteHeader(401)
+    } else {
+      token := cookie.Value
+      status := c.CommentDelete_c(token, r.FormValue("qid"))
+      w.WriteHeader(status)
+    }
+  }).Methods("DELETE")
+
+  r.HandleFunc("/api/comment/create", func(w http.ResponseWriter, r *http.Request) {
+    cookie, err := r.Cookie("session_token")
+    if (err != nil) {
+      w.WriteHeader(401)
+    } else {
+      token := cookie.Value
+      status := c.CommentCreate_c(token, r.FormValue("aid"), r.FormValue("content"))
+      w.WriteHeader(status)
+    }
+  }).Methods("POST")
+
+  r.HandleFunc("/api/comment/update", func(w http.ResponseWriter, r *http.Request) {
+    cookie, err := r.Cookie("session_token")
+    if (err != nil) {
+      w.WriteHeader(401)
+    } else {
+      token := cookie.Value
+      status := c.CommentUpdate_c(token, r.FormValue("qid"), r.FormValue("content"))
+      w.WriteHeader(status)
+    }
+  }).Methods("PATCH")
+
   // Articles Routes
 
   r.HandleFunc("/api/article/read/{aid}", func(w http.ResponseWriter, r *http.Request) {

@@ -38,7 +38,7 @@ func CommentFetch_c(token string, aid string) (coms []m.Comment, status int) {
   return coms, status
 }
 
-func CommentDelete_c(token string, aid string, qid string) int {
+func CommentDelete_c(token string, qid string) int {
   // Check if user is logged, admin can delete anyone comments
   uid, is_user := UserRights(token)
   _, is_admin := AdminRights(token)
