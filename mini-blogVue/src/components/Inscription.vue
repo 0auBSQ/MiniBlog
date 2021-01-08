@@ -65,22 +65,22 @@ export default {
     },
     register: async function () {
       const auth = { email: this.email, password: this.password }
-      const url = '/register'
+      const url = 'http://localhost:8888/api/register'
 
       console.log(auth);
       await this.axios.post(url + "?email=" + this.email + "&login=" + this.userName + "&password=" + this.password, {})
         .then(res => {
           if (res.status == 200){
             
-            this.$router.push({path: '/login'})
+            this.$router.push({path: '/tmp'})
           }
           console.log(res.status);
         })
         .catch(err => {
           console.log(err)
           if(err && err.response && err.reponse.status){
-            if (err.response.status === 404)
-              this.error = "The requested account doesn't exist";
+            if (err.response.status === 400)
+              this.error = "Invalid information";
             else if (err.reponse.status === 500)
               this.error = "Internal server error";
             else

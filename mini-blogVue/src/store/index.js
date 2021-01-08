@@ -17,7 +17,7 @@ export default new Vuex.Store({
 
             const url = 'http://localhost:8888/api/is_auth'
 
-            await axios.post(url, {})
+            await axios.get(url, {})
             .then(res => {
                 if (res.status == 200){
                     state.status = "success"

@@ -2,14 +2,10 @@
     <div class="containerAdmin">
         <h2>Admin</h2>
         <div class="banned">
-
-        </div>
-        <div class="addArticle">
-            <h2>Add Article</h2>
-            <form class="article" @submit.prevent="addarticle">
-                <textarea type="text" class="textarea" v-model="text"></textarea>
-                <button type="submit">Add</button>
-            </form>
+            <div class="user" v-for="user in users" :key="user.id">
+                <p>{{user.userName}}</p>
+                <button class="ban">Ban</button>
+            </div>
         </div>
     </div>
 </template>
@@ -19,11 +15,24 @@ export default {
     name: 'Admin',
     data () {
         return {
-            text: null,
+            users: [
+                {
+                    id: 0,
+                    userName: "jean",
+                },
+                {
+                    id: 1,
+                    userName: "jacque",
+                },
+                {
+                    id: 2,
+                    userName: "maxime",
+                },
+            ]
         }
     },
     methods: {
-        addarticle: function () {
+        banUser: function () {
 
         }
     }

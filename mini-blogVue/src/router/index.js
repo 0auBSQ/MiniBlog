@@ -48,6 +48,11 @@ const routes = [
         component: () => import("../views/News.vue")
     },
     {
+        path: "/tmp",
+        name: "Tmp",
+        component: () => import("../views/Tmp.vue")
+    },
+    {
         path: '/account',
         component : () => import("../views/Account.vue"),
         //beforeEnter: isAuth,

@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     log: async function () {
-      const url = '/login'
+      const url = 'http://localhost:8888/api/login'
 
       await this.axios.post(url + "?email=" + this.email + "&password=" + this.password, {})
         .then(res => {
