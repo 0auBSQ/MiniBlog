@@ -12,6 +12,7 @@
                 {{article.Contents}}
             </p>
         </div>
+        <button v-if="statusAdmin" @click="goEdit"></button>
         <div class="commentSec">
             <h3 class="commentTitle">Comments</h3>
             <div v-if="statusUser == true" class="writeCom">
@@ -46,6 +47,11 @@ export default {
             article : {}
         }
     },
+    methods: {
+        goEdit () {
+            this.$router.push({path: `/editArticle/${this.article.Id}`})
+        }
+    },
     created: async function() {
 
           const url = 'http://localhost:8888/api/comment/fetch/'+ this.$route.params.id
@@ -58,7 +64,6 @@ export default {
           .then(res => {
             if (res.status == 200){
               this.article = res.data
-              console.log(res.data)
             }
           })
           .catch(err => {
@@ -98,6 +103,7 @@ export default {
 
     ...mapGetters({
         statusUser:'statusUser',
+        statusAdmin: 'statusAdmin'
     })
 
 
