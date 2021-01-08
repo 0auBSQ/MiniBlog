@@ -1,7 +1,7 @@
 <template>
     <div class="containerNav">
         <router-link class="navItem" to="/account/userinfo"><div class="text">Profile Information</div></router-link>
-        <router-link class="navItem" v-if="isAdmin == true" to="/account/admin"><div class="text">Admin</div></router-link>
+        <router-link class="navItem" v-if="statusAdmin == true" to="/account/admin"><div class="text">Admin</div></router-link>
         <router-link class="navItem disconnect" to="" @click="logout"><div class="text">Disconnect</div></router-link>
     </div>
 </template>
@@ -43,7 +43,7 @@ export default {
     },
     computed: {
       ...mapGetters({
-         isAdmin: 'isAdmin'
+         statusAdmin: 'statusAdmin'
       })
     }
 }
