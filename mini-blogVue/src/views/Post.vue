@@ -23,7 +23,7 @@
                 </form>
             </div>
             <hr class="sep">
-            <comment v-for="comment in comments" :key="comment.id" :user="comment.user" :content="comment.content" :date="comment.date" :id="comment.id"></comment>
+            <comment v-for="comment in comments" :key="comment.Id" :user="comment.Author" :content="comment.Contents" :date="comment.Creation_date" :id="comment.id"></comment>
         </div>
     </div>
 </template>
