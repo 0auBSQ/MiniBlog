@@ -29,7 +29,7 @@ func CommentDelete_m(qid string) int {
 
 func CommentUpdate_m(qid string, content string) int {
   db = Db_m()
-  _, err := db.Exec("UPDATE comments SET contents=$2 WHERE id=$1;", qid, content)
+  _, err := db.Exec("UPDATE comment SET contents=$2 WHERE id=$1;", qid, content)
   return (u.CheckErr(err, 200))
 }
 
@@ -62,7 +62,7 @@ func CommentFetch_m(uid string, aid string, admin bool) (coms []Comment, status 
 func CommentGetOwner_m(qid string) (owner string, status int) {
   db = Db_m()
   status = 404
-  rows, err := db.Query("SELECT uid FROM comments WHERE id=$1", qid)
+  rows, err := db.Query("SELECT uid FROM comment WHERE id=$1", qid)
   if (err != nil) {
     log.Println(err)
     return owner, 500

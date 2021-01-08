@@ -37,6 +37,26 @@ func main() {
     fmt.Fprintf(w, "Hello world")
   }).Methods("GET")
 
+  // Comment routes
+
+  r.HandleFunc("/api/comment/fetch/{aid}", func(w http.ResponseWriter, r *http.Request) {
+    vars := mux.Vars(r)
+    cookie, err := r.Cookie("session_token")
+    token := ""
+    if (err == nil) {
+      token = cookie.Value
+    }
+    coms, status := c.CommentFetch_c(token, vars["aid"])
+    js, err := json.Marshal(coms)
+    if (err != nil) {
+      http.Error(w, err.Error(), http.StatusInternalServerError)
+      return
+    }
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(status)
+    w.Write(js)
+  }).Methods("GET")
+
   // Articles Routes
 
   r.HandleFunc("/api/article/read/{aid}", func(w http.ResponseWriter, r *http.Request) {

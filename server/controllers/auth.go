@@ -6,6 +6,9 @@ import (
 )
 
 func Isauth_c(token string) (int, int) {
+  if (token == "") {
+    return 0, 401
+  }
   id, status := u.DesDecrypt(token)
   if (status != 200) {
     return 0, status
