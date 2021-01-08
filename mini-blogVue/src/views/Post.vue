@@ -14,7 +14,7 @@
         </div>
         <div class="commentSec">
             <h3 class="commentTitle">Comments</h3>
-            <div v-if="isAuth == true" class="writeCom">
+            <div v-if="statusUser == true" class="writeCom">
                 <form class="com">
                     <label for="">Leave a comment</label>
                     <textarea type="text" class="cominput"></textarea>
@@ -96,9 +96,9 @@ export default {
     },
     computed: {
 
-    ...mapGetters([
-      'isAuth',
-    ])
+    ...mapGetters({
+        statusUser:'statusUser',
+    })
 
 
   }
