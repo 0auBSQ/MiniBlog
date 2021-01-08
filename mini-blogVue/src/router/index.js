@@ -20,7 +20,7 @@ const routes = [
         path: "/login",
         name: "LoginPage",
         component: () => import("../views/LoginPage.vue"),
-        
+
     },
     {
         path: "/register",
@@ -47,7 +47,7 @@ const routes = [
                 info: AccountInfo
             }
         },{
-            path: 'admin', 
+            path: 'admin',
             components: {
                 info: Admin
             }
@@ -64,7 +64,7 @@ const routes = [
         name: 'addarticle',
         component: () => import("../views/AddArticle.vue"),
         meta: { requiresAdmin: true },
-        
+
     },
     {
         path: '/editArticle/:id',
@@ -79,7 +79,7 @@ const routes = [
         path: "*",
         component: () => import("../views/Missing.vue")
     },
-    
+
 ]
 
 const router = new VueRouter({
@@ -88,10 +88,11 @@ const router = new VueRouter({
     routes
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
-     
-      if (store.getters.isAuth != true) {
+
+      await store.getters.isAuth;
+      if (store.getters.statusUser != true) {
         next({
           path: '/login',
           query: { redirect: to.fullPath }
@@ -100,14 +101,15 @@ router.beforeEach((to, from, next) => {
         next()
       }
     } else {
-      next() 
+      next()
     }
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAdmin)) {
-     
-      if (store.getters.isAdmin != true) {
+
+      await store.getters.isAdmin;
+      if (store.getters.statusAdmin != true) {
         next({
           path: '/',
           query: { redirect: to.fullPath }
@@ -116,7 +118,7 @@ router.beforeEach((to, from, next) => {
         next()
       }
     } else {
-      next() 
+      next()
     }
 })
 

@@ -15,7 +15,8 @@ export default {
     props: {
         title: String,
         author: String,
-        id: Number
+        id: Number,
+        link: String,
     },
     methods: {
         goArticle(id) {

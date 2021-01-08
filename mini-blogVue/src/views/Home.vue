@@ -2,7 +2,7 @@
     <div class="homeContainer">
 
         <div class="postContainer">
-          <postCard class="card" :style="{ backgroundImage: 'url(' + article.link + ')'}" v-for="article in articleList" :key="article.Id" :title="article.Title" :author="article.Author" :id="article.Id"></postCard>
+          <postCard class="card" :style="{ backgroundImage: 'url(' + article.Img_link + ')'}" v-for="article in articleList" :key="article.Id" :title="article.Title" :author="article.Author" :id="article.Id"></postCard>
         </div>
         <div class="aside">
           <div class="search">
@@ -17,7 +17,7 @@
 
           </div>
         </div>
-        <button v-if="isAdmin == true" class="bouton1" @click="goAdd">+</button>
+        <button v-if="statusAdmin == true" class="bouton1" @click="goAdd">+</button>
     </div>
 </template>
 <script>
@@ -64,11 +64,13 @@ export default {
         }
 
   },
-  created () {
-    this.getData()
+  async created () {
+    this.getData();
+    await this.isAdmin;
   },
   computed: {
     ...mapGetters({
+      statusAdmin: 'statusAdmin',
       isAdmin: 'isAdmin'
     })
   }
