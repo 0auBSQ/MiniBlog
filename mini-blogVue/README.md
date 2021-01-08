@@ -47,4 +47,6 @@ Pour simplifier et accélérer le développement des visuels de notre applicatio
 La principale difficulté coté front-end à été de créer une application avec un bon UX et un bon UI, n'ayant jamais eu de véritable formation dans ce domaine nous allons faire évoluer ces points-ci.
 
 ## Les prochains ajouts
-Coté front-end
+-Les prochaines modifications porteront surtout sur les bug visuel afin d'obtenir une application parfaitement stable.
+-De régler les affichages correctement afin de corriger les bugs pour les appareils mobiles.
+-D'envisager l'utilisation des technologies PWA.
