@@ -26,8 +26,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  -webkit-filter: grayscale(30%);
-          filter: grayscale(30%);
+  -webkit-filter: blur(4px);
+          filter: blur(4px);
 }
 
 .author {
