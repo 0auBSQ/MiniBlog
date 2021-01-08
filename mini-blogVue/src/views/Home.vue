@@ -1,6 +1,6 @@
 <template>
     <div class="homeContainer">
-        
+
         <div class="postContainer">
           <postCard class="card" :style="{ backgroundImage: 'url(' + article.link + ')'}" v-for="article in articleList" :key="article.Id" :title="article.Title" :author="article.Author" :id="article.Id"></postCard>
         </div>
@@ -12,9 +12,9 @@
               <button type="submit">Search</button>
             </form>
           </div>
-          
+
           <div class="dateQ">
-            
+
           </div>
         </div>
         <button v-if="isAdmin == true" class="bouton1" @click="goAdd">+</button>
@@ -44,24 +44,25 @@ export default {
 
           await this.axios.get(url, {})
           .then(res => {
+            console.log(res)
             if (res.status == 200){
-              this.articleList.push(res.data)
+              this.articleList = res.data
             }
           })
           .catch(err => {
-            
+
             if(err && err.response && err.response.status){
               if (err.response.status === 404){
-                this.error = "The requested account doesn't exist";
+                this.error = "The requested ressource doesn't exist";
               }
               else if (err.response.status === 500)
                 this.error = "Internal server error";
               else
                 this.error = err.message;
             }
-          })    
+          })
         }
-        
+
   },
   created () {
     this.getData()

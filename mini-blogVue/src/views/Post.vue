@@ -7,9 +7,9 @@
         </div>
         <div class="content">
             <p class="text" >
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-                Ullam autem voluptatem quam iusto perspiciatis dolor aspernatur, 
-                corrupti nesciunt natus voluptatum beatae sint placeat incidunt 
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Ullam autem voluptatem quam iusto perspiciatis dolor aspernatur,
+                corrupti nesciunt natus voluptatum beatae sint placeat incidunt
                 cumque porro voluptas adipisci? Odio, omnis.
             </p>
         </div>
@@ -45,29 +45,30 @@ export default {
         }
     },
     created: async function() {
-       
-          const url = 'http://localhost:8888/api/article/read/  '+ this.$route.params.id
+
+          const url = 'http://localhost:8888/api/comment/fetch/'+ this.$route.params.id
+          const art = 'http://localhost:8888/api/article/read/'+ this.$route.params.id
           console.log(url)
+          console.log(art)
 
           await this.axios.get(url, {})
           .then(res => {
             if (res.status == 200){
-              this.comments.push(res.data)
+              this.comments = res.data
             }
           })
           .catch(err => {
-            
             if(err && err.response && err.response.status){
               if (err.response.status === 404){
-                this.error = "The requested account doesn't exist";
+                this.error = "The requested ressource doesn't exist";
               }
               else if (err.response.status === 500)
                 this.error = "Internal server error";
               else
                 this.error = err.message;
             }
-          })    
-        
+          })
+
     },
     computed: {
 
@@ -75,7 +76,7 @@ export default {
       'isAuth',
     ])
 
-    
+
   }
 }
 
