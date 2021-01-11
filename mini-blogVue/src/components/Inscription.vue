@@ -14,6 +14,9 @@
       <input required v-model="confpassword" type="password" />
 
       <button type="submit">Register</button>
+      <div v-if="error" class="error">
+           {{error}}
+         </div>
     </form>
   </div>
 </template>
@@ -38,7 +41,6 @@ export default {
   methods: {
     checkForm: function () {
       this.errors = [];
-
       if (!this.userName) {
         this.errors.push("User Name required.");
       }
@@ -53,11 +55,12 @@ export default {
         this.errors.push("password must be the same");
       }
 
+      this.error = this.errors.join(", ");
       if (!this.errors.length) {
         this.register()
       }
-      
-      
+
+
     },
     validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -71,7 +74,7 @@ export default {
       await this.axios.post(url + "?email=" + this.email + "&login=" + this.userName + "&password=" + this.password, {})
         .then(res => {
           if (res.status == 200){
-            
+
             this.$router.push({path: '/tmp'})
           }
           console.log(res.status);

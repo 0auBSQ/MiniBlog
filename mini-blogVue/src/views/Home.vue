@@ -2,7 +2,7 @@
     <div class="homeContainer">
 
         <div class="postContainer">
-          <postCard class="card" :style="{ backgroundImage: 'url(' + article.Img_link + ')'}" v-for="article in articleList" :key="article.Id" :title="article.Title" :author="article.Author" :id="article.Id"></postCard>
+          <postCard class="card" :style="{ backgroundImage: 'url(' + article.Img_link + ')', backgroundSize : 'cover',  boxShadow : 'inset 0 0 0 2000px rgba(150, 150, 150, 0.7)'}" v-for="article in articleList" :key="article.Id" :title="article.Title" :author="article.Author" :id="article.Id"></postCard>
         </div>
         <div class="aside">
           <div class="search">
