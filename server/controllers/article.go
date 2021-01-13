@@ -36,9 +36,9 @@ func ArticleRead_c(token string, aid string) (m.Article, int) {
   return art, status
 }
 
-func ArticleFetch_c() ([]m.Article, int){
+func ArticleFetch_c(search string) ([]m.Article, int){
   // Fetch all articles (no authentification needed)
-  arts, status := m.ArticleFetch_m()
+  arts, status := m.ArticleFetch_m(search)
   return arts, status
 }
 

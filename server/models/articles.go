@@ -59,10 +59,10 @@ func ArticleGetOwner_m(aid string) (string, int) {
   return art.Uid, status
 }
 
-func ArticleFetch_m() (arts []Article, status int) {
+func ArticleFetch_m(search string) (arts []Article, status int) {
   db = Db_m()
   var art Article
-  rows, err := db.Query("SELECT a.id, uid, titre, contents, img_link, creation_date, u.username FROM articles a INNER JOIN users u ON a.uid = u.id")
+  rows, err := db.Query("SELECT a.id, uid, titre, contents, img_link, creation_date, u.username FROM articles a INNER JOIN users u ON a.uid = u.id WHERE a.titre LIKE '%' || $1 || '%'", search)
   if (err != nil) {
     log.Println(err)
     return arts, 500

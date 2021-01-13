@@ -106,7 +106,7 @@ func main() {
   }).Methods("GET")
 
   r.HandleFunc("/api/article/fetch", func(w http.ResponseWriter, r *http.Request) {
-    arts, status := c.ArticleFetch_c()
+    arts, status := c.ArticleFetch_c(r.FormValue("search"))
     js, err := json.Marshal(arts)
     if (err != nil) {
       http.Error(w, err.Error(), http.StatusInternalServerError)

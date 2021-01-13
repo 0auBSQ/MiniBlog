@@ -6,10 +6,9 @@
         </div>
         <div class="aside">
           <div class="search">
-            <h3 class="menu">Menu</h3>
+            <h3 class="menu">Search</h3>
             <form action="">
-              <input type="text">
-              <button type="submit">Search</button>
+              <input v-model="search_bar" type="text" v-on:keyup="getData">
             </form>
           </div>
 
@@ -31,7 +30,8 @@ export default {
   name: 'Home',
   data () {
     return {
-      articleList: []
+      articleList: [],
+      search_bar: ""
     }
   },
   components: {
@@ -42,8 +42,9 @@ export default {
             this.$router.push('/addarticle')
         },
         async getData () {
-          const url = 'http://localhost:8888/api/article/fetch'
+          const url = 'http://localhost:8888/api/article/fetch?search=' + this.search_bar;
 
+          console.log(this.search_bar);
           await this.axios.get(url, {})
           .then(res => {
             console.log(res)
