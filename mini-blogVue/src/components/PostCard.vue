@@ -15,7 +15,7 @@ export default {
     props: {
         title: String,
         author: String,
-        id: Number,
+        id: String,
         link: String,
     },
     methods: {

@@ -36,8 +36,7 @@ export default {
   async created () {
     if (this.statusAdmin != true)
       await this.isAdmin;
-    if (this.statusUser != true)
-      await this.isAuth;
+    await this.isAuth;
   },
   computed: {
 
