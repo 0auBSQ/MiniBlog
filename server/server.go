@@ -129,6 +129,7 @@ func main() {
   }).Methods("DELETE")
 
   r.HandleFunc("/api/article/create", func(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Access-Control-Allow-Credentials", "true")
     cookie, err := r.Cookie("session_token")
     log.Println(cookie)
     log.Println(err)
@@ -236,6 +237,6 @@ func main() {
   }).Methods("PATCH")
 
   fmt.Printf("Launched on port 8888\n")
-  log.Fatal(http.ListenAndServe(":8888", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "PATCH", "DELETE", "OPTIONS"}), handlers.AllowedOrigins([]string{"http://localhost:8080"}))(r)))
+  log.Fatal(http.ListenAndServe(":8888", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Accept"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "PATCH", "DELETE", "OPTIONS"}), handlers.AllowedOrigins([]string{"http://localhost:8080"}))(r)))
 
 }
