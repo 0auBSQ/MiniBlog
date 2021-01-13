@@ -68,12 +68,10 @@ export default {
   },
   async created () {
     this.getData();
-    await this.isAdmin;
   },
   computed: {
     ...mapGetters({
       statusAdmin: 'statusAdmin',
-      isAdmin: 'isAdmin',
     })
   }
 }

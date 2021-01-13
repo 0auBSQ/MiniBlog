@@ -43,13 +43,9 @@ export default {
         })
       }
     },
-    async created () {
-      await this.isAdmin;
-    },
     computed: {
       ...mapGetters({
          statusAdmin: 'statusAdmin',
-         isAdmin: 'isAdmin'
       }),
       ...mapMutations([
         'logoutSuccess'

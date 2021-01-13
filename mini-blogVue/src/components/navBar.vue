@@ -34,13 +34,18 @@ export default {
     }
   },
   async created () {
-    await this.isAuth;
+    if (this.statusAdmin != true)
+      await this.isAdmin;
+    if (this.statusUser != true)
+      await this.isAuth;
   },
   computed: {
 
     ...mapGetters({
       statusUser: 'statusUser',
+      statusAdmin: 'statusAdmin',
       isAuth: 'isAuth',
+      isAdmin: 'isAdmin',
     })
 
 
