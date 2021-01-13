@@ -73,7 +73,7 @@ export default {
   computed: {
     ...mapGetters({
       statusAdmin: 'statusAdmin',
-      isAdmin: 'isAdmin'
+      isAdmin: 'isAdmin',
     })
   }
 }

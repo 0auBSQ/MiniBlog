@@ -7,11 +7,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
     name: "AccountNav",
-   
+
     data () {
         return {
             admin: 1
@@ -25,11 +25,12 @@ export default {
           await this.axios.get(url, {withCredentials: true})
           .then(res => {
             if (res.status == 200){
+              this.$store.commit('logoutSuccess')
               this.$router.push({path: '/login'})
             }
           })
           .catch(err => {
-            
+
             if(err && err.response && err.response.status){
             if (err.response.status === 404){
               this.error = "The requested account doesn't exist";
@@ -39,13 +40,20 @@ export default {
             else
               this.error = err.message;
             }
-        })    
-    }
+        })
+      }
+    },
+    async created () {
+      await this.isAdmin;
     },
     computed: {
       ...mapGetters({
-         statusAdmin: 'statusAdmin'
-      })
+         statusAdmin: 'statusAdmin',
+         isAdmin: 'isAdmin'
+      }),
+      ...mapMutations([
+        'logoutSuccess'
+      ])
     }
 }
 </script>

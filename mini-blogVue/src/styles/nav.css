@@ -1,6 +1,9 @@
 .topnav {
   overflow: hidden;
   background-color: #262626;
+  position: fixed;
+  width: 100%;
+  top: 0;
 }
 
 .topnav .navBarItem {

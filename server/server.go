@@ -129,7 +129,6 @@ func main() {
   }).Methods("DELETE")
 
   r.HandleFunc("/api/article/create", func(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Access-Control-Allow-Credentials", "true")
     cookie, err := r.Cookie("session_token")
     log.Println(cookie)
     log.Println(err)
@@ -182,11 +181,8 @@ func main() {
       expiration := time.Now().Add(3 * 24 * time.Hour)
       cookie := http.Cookie{Name: "session_token", Value: token, Expires: expiration, HttpOnly: true}
       cookie_admin := http.Cookie{Name: "status", Value: strconv.Itoa(admin), Expires: expiration}
-      w.Header().Set("Access-Control-Allow-Credentials", "true")
       http.SetCookie(w, &cookie)
       http.SetCookie(w, &cookie_admin)
-    } else {
-      w.Header().Set("Access-Control-Allow-Credentials", "true")
     }
     w.WriteHeader(status)
   }).Methods("GET")
@@ -195,17 +191,13 @@ func main() {
     // Delete session cookie by putting a past date
     expiration := time.Now().Add(-3 * 24 * time.Hour)
     cookie := http.Cookie{Name: "session_token", Value: "", Expires: expiration, HttpOnly: true}
-    cookie_admin := http.Cookie{Name: "status", Value: "", Expires: expiration}
-    w.Header().Set("Access-Control-Allow-Credentials", "true")
     http.SetCookie(w, &cookie)
-    http.SetCookie(w, &cookie_admin)
     w.WriteHeader(200)
   }).Methods("GET")
 
   r.HandleFunc("/api/is_auth/{type}", func(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
     cookie, err := r.Cookie("session_token")
-    w.Header().Set("Access-Control-Allow-Credentials", "true")
     if (err != nil) {
       w.WriteHeader(401)
       io.WriteString(w, "No session token")
@@ -237,6 +229,6 @@ func main() {
   }).Methods("PATCH")
 
   fmt.Printf("Launched on port 8888\n")
-  log.Fatal(http.ListenAndServe(":8888", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Accept"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "PATCH", "DELETE", "OPTIONS"}), handlers.AllowedOrigins([]string{"http://localhost:8080"}))(r)))
+  log.Fatal(http.ListenAndServe(":8888", handlers.CORS(handlers.AllowCredentials(), handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Accept"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "PATCH", "DELETE", "OPTIONS"}), handlers.AllowedOrigins([]string{"http://localhost:8080"}))(r)))
 
 }

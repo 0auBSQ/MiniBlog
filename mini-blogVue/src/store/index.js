@@ -77,8 +77,14 @@ export default new Vuex.Store({
     },
     mutations: {
 
-        authSuccess : (state) => {
+        authSuccess : async (state) => {
             state.status = 'success'
+            state.user = true;
+        },
+
+        logoutSuccess : (state) => {
+          state.admin = false;
+          state.user = false;
         }
 
     },

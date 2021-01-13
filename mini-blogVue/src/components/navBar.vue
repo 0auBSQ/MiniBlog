@@ -14,7 +14,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: "navBar",
   props: {
-    
+
   },
   data () {
     return {
@@ -33,13 +33,17 @@ export default {
       ]
     }
   },
+  async created () {
+    await this.isAuth;
+  },
   computed: {
 
     ...mapGetters({
       statusUser: 'statusUser',
+      isAuth: 'isAuth',
     })
 
-    
+
   }
 }
 </script>
