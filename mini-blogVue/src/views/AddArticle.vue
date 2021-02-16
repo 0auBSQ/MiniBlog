@@ -48,14 +48,14 @@ export default {
             console.log(url);
             console.log(this.axios);
 
-            await this.axios.post(url, { withCredentials: true })
+            await this.axios.post(url, {}, {headers: {Authorization: this.$store.state.token}})
             .then(res => {
                 if (res.status == 200){
                     console.log("test")
                 }
             })
             .catch(err => {
-
+                console.log(this.$store.state);
                 if(err && err.response && err.response.status){
                 if (err.response.status === 404){
                     this.error = "The requested account doesn't exist";

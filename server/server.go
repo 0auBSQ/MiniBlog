@@ -11,7 +11,6 @@ import (
   m "./models"
   u "./utils"
   "io"
-  "strconv"
   "encoding/json"
 )
 
@@ -35,11 +34,8 @@ func main() {
 
   r.HandleFunc("/api/comment/fetch/{aid}", func(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
-    cookie, err := r.Cookie("session_token")
-    token := ""
-    if (err == nil) {
-      token = cookie.Value
-    }
+    //cookie, err := r.Cookie("session_token")
+    token := r.Header.Get("Authorization")
     coms, status := c.CommentFetch_c(token, vars["aid"])
     js, err := json.Marshal(coms)
     if (err != nil) {
@@ -52,34 +48,33 @@ func main() {
   }).Methods("GET")
 
   r.HandleFunc("/api/comment/delete", func(w http.ResponseWriter, r *http.Request) {
-    cookie, err := r.Cookie("session_token")
-    if (err != nil) {
+    //cookie, err := r.Cookie("session_token")
+    token := r.Header.Get("Authorization")
+    if (token == "") {
       w.WriteHeader(401)
     } else {
-      token := cookie.Value
       status := c.CommentDelete_c(token, r.FormValue("qid"))
       w.WriteHeader(status)
     }
   }).Methods("DELETE")
 
   r.HandleFunc("/api/comment/create", func(w http.ResponseWriter, r *http.Request) {
-    cookie, err := r.Cookie("session_token")
-    if (err != nil) {
+    //cookie, err := r.Cookie("session_token")
+    token := r.Header.Get("Authorization")
+    if (token == "") {
       w.WriteHeader(401)
     } else {
-      token := cookie.Value
       status := c.CommentCreate_c(token, r.FormValue("aid"), r.FormValue("content"))
       w.WriteHeader(status)
     }
   }).Methods("POST")
 
   r.HandleFunc("/api/comment/update", func(w http.ResponseWriter, r *http.Request) {
-    cookie, err := r.Cookie("session_token")
-    if (err != nil) {
-      log.Println(err)
+    //cookie, err := r.Cookie("session_token")
+    token := r.Header.Get("Authorization")
+    if (token == "") {
       w.WriteHeader(401)
     } else {
-      token := cookie.Value
       status := c.CommentUpdate_c(token, r.FormValue("qid"), r.FormValue("content"))
       w.WriteHeader(status)
     }
@@ -89,11 +84,8 @@ func main() {
 
   r.HandleFunc("/api/article/read/{aid}", func(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
-    cookie, err := r.Cookie("session_token")
-    token := ""
-    if (err == nil) {
-      token = cookie.Value
-    }
+    //cookie, err := r.Cookie("session_token")
+    token := r.Header.Get("Authorization")
     art, status := c.ArticleRead_c(token, vars["aid"])
     js, err := json.Marshal(art)
     if (err != nil) {
@@ -118,27 +110,27 @@ func main() {
   }).Methods("GET")
 
   r.HandleFunc("/api/article/delete", func(w http.ResponseWriter, r *http.Request) {
-    cookie, err := r.Cookie("session_token")
-    if (err != nil) {
+    //cookie, err := r.Cookie("session_token")
+    token := r.Header.Get("Authorization")
+    if (token == "") {
       w.WriteHeader(401)
     } else {
-      token := cookie.Value
       _, status := c.ArticleDelete_c(r.FormValue("aid"), token)
       w.WriteHeader(status)
     }
   }).Methods("DELETE")
 
   r.HandleFunc("/api/article/create", func(w http.ResponseWriter, r *http.Request) {
-    cookie, err := r.Cookie("session_token")
-    log.Println(cookie)
-    log.Println(err)
-    if (err != nil) {
-      log.Println(err)
+    //cookie, err := r.Cookie("session_token")
+    token := r.Header.Get("Authorization")
+    if (token == "") {
       w.WriteHeader(401)
     } else {
-      token := cookie.Value
       log.Println(token)
+      log.Println("First step");
       aid, status := c.ArticleCreate_c(token, r.FormValue("title"), r.FormValue("content"), r.FormValue("img_link"))
+      log.Println(aid);
+      log.Println(status);
       js, err := json.Marshal(aid)
       if (err != nil) {
         http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -151,11 +143,11 @@ func main() {
   }).Methods("POST")
 
   r.HandleFunc("/api/article/update", func(w http.ResponseWriter, r *http.Request) {
-    cookie, err := r.Cookie("session_token")
-    if (err != nil) {
+    //cookie, err := r.Cookie("session_token")
+    token := r.Header.Get("Authorization")
+    if (token == "") {
       w.WriteHeader(401)
     } else {
-      token := cookie.Value
       aid, status := c.ArticleUpdate_c(r.FormValue("aid"), token, r.FormValue("title"), r.FormValue("content"), r.FormValue("img_link"))
       js, err := json.Marshal(aid)
       if (err != nil) {
@@ -176,20 +168,24 @@ func main() {
   }).Methods("POST")
 
   r.HandleFunc("/api/login", func(w http.ResponseWriter, r *http.Request) {
-    token, status, admin := c.Signin_c(r.FormValue("email"), r.FormValue("password"))
+    token, status, _ := c.Signin_c(r.FormValue("email"), r.FormValue("password"))
     if (status == 200) {
-      expiration := time.Now().Add(3 * 24 * time.Hour)
-      cookie := http.Cookie{Name: "session_token", Value: token, Expires: expiration, HttpOnly: true}
-      cookie_admin := http.Cookie{Name: "status", Value: strconv.Itoa(admin), Expires: expiration}
-      http.SetCookie(w, &cookie)
-      http.SetCookie(w, &cookie_admin)
+      //expiration := time.Now().Add(3 * 24 * time.Hour)
+      //cookie := http.Cookie{Name: "session_token", Value: token, Expires: expiration, HttpOnly: true}
+      //cookie_admin := http.Cookie{Name: "status", Value: strconv.Itoa(admin), Expires: expiration}
+      //http.SetCookie(w, &cookie)
+      //http.SetCookie(w, &cookie_admin)
+
+      w.Header().Set("Authorization", token);
+      status = 201; // 201 CREATED
     }
     w.WriteHeader(status)
-  }).Methods("GET")
+  }).Methods("POST")
 
+  // Useless while using the local storage
   r.HandleFunc("/api/logout", func(w http.ResponseWriter, r *http.Request) {
     // Delete session cookie by putting a past date
-    expiration := time.Now().Add(-3 * 24 * time.Hour)
+    expiration := time.Time{}
     cookie := http.Cookie{Name: "session_token", Value: "", Expires: expiration, HttpOnly: true}
     http.SetCookie(w, &cookie)
     w.WriteHeader(200)
@@ -197,12 +193,13 @@ func main() {
 
   r.HandleFunc("/api/is_auth/{type}", func(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
-    cookie, err := r.Cookie("session_token")
-    if (err != nil) {
+    //cookie, err := r.Cookie("session_token")
+    token := r.Header.Get("Authorization")
+    log.Println(token)
+    if (token == "") {
       w.WriteHeader(401)
       io.WriteString(w, "No session token")
     } else {
-      token := cookie.Value
       admin, status := c.Isauth_c(token)
       if (vars["type"] == "admin" && admin == 0) {
         status = 401
@@ -216,6 +213,7 @@ func main() {
     }
   }).Methods("GET")
 
+  // To fix later
   r.HandleFunc("/api/ban/{uid}", func(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
     cookie, err := r.Cookie("session_token")
@@ -229,6 +227,15 @@ func main() {
   }).Methods("PATCH")
 
   fmt.Printf("Launched on port 8888\n")
-  log.Fatal(http.ListenAndServe(":8888", handlers.CORS(handlers.AllowCredentials(), handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Accept"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "PATCH", "DELETE", "OPTIONS"}), handlers.AllowedOrigins([]string{"http://localhost:8080"}))(r)))
+
+  cors := handlers.CORS(
+    handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Accept"}),
+    handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "PATCH", "DELETE", "OPTIONS"}),
+    handlers.ExposedHeaders([]string{"*"}),
+    handlers.AllowedOrigins([]string{"http://localhost:8080"}),
+    handlers.AllowCredentials(),
+  )
+
+  log.Fatal(http.ListenAndServe(":8888", cors(r)))
 
 }

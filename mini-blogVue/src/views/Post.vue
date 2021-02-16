@@ -60,7 +60,7 @@ export default {
           console.log(url)
           console.log(art)
 
-          await this.axios.get(art, {})
+          await this.axios.get(art, {headers: {Authorization: this.$store.state.token}})
           .then(res => {
             if (res.status == 200){
               this.article = res.data
@@ -79,7 +79,7 @@ export default {
           })
 
 
-          await this.axios.get(url, {})
+          await this.axios.get(url, {headers: {Authorization: this.$store.state.token}})
           .then(res => {
             if (res.status == 200){
               this.comments = res.data

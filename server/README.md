@@ -15,7 +15,7 @@
 
 Launch :
 ```
-sudo service postgresql-13 start
+sudo service postgresql start
 ```
 
 Init :
@@ -73,7 +73,7 @@ CREATE TABLE comment(
 (PATCH) /api/ban/{uid} (string => void) : Bans the given user (sets his is_banned flag to 1)
 (GET) /api/is_auth/{type} (string => void) : Checks if the user is connected using his session token (also checks if the user is admin is type = admin)
 (GET) /api/logout (void => void) : Ends the current session (deletes the session token)
-(GET) /api/login (string, string => void) : Starts a session and generates a session token (initially planned to be a POST request, but set temporarly on GET due to cors issues)
+(POST) /api/login (string, string => void) : Starts a session and generates a session token
 (POST) /api/register (string, string, string => void) : Creates a new user account
 (PATCH) /api/article/update (string, string, string, string => string) : Updates a given article, returns the article id
 (POST) /api/article/create (string, string, string => string) : Creates a new article, returns the newly created article id

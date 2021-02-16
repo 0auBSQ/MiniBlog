@@ -2,7 +2,7 @@
     <div class="homeContainer">
 
         <div class="postContainer">
-          <postCard class="card" :style="{ backgroundImage: 'url(' + article.Img_link + ')', backgroundSize : 'cover',  boxShadow : 'inset 0 0 0 2000px rgba(150, 150, 150, 0.7)'}" v-for="article in articleList" :key="article.Id" :title="article.Title" :author="article.Author" :id="article.Id"></postCard>
+          <postCard class="card" :style="{ backgroundImage: 'url(' + article.Img_link + ')', backgroundSize : 'cover',  boxShadow : 'inset 0 0 0 2000px rgba(190, 190, 190, 0.7)'}" v-for="article in articleList" :key="article.Id" :title="article.Title" :author="article.Author" :id="article.Id"></postCard>
         </div>
         <div class="aside">
           <div class="search">
@@ -25,7 +25,6 @@
 import PostCard from "../components/PostCard.vue"
 import { mapGetters } from 'vuex'
 
-
 export default {
   name: 'Home',
   data () {
@@ -45,7 +44,7 @@ export default {
           const url = 'http://localhost:8888/api/article/fetch?search=' + this.search_bar;
 
           console.log(this.search_bar);
-          await this.axios.get(url, {})
+          await this.axios.get(url, {headers: {Authorization: this.$store.state.token}})
           .then(res => {
             console.log(res)
             if (res.status == 200){

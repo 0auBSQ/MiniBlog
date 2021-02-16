@@ -42,11 +42,12 @@ export default {
     log: async function () {
       const url = 'http://localhost:8888/api/login'
 
-      await this.axios.get(url + "?email=" + this.email + "&password=" + this.password, {withCredentials: true})
+      await this.axios.post(url + "?email=" + this.email + "&password=" + this.password, {})
         .then(res => {
-          if (res.status == 200){
-            this.$store.commit('authSuccess')
-            this.$router.push({path: '/account'})
+          if (res.status == 200 || res.status == 201){
+            console.log(res);
+            this.$store.commit('authSuccess', res.headers.authorization);
+            this.$router.push({path: '/account'});
           }
         })
         .catch(err => {

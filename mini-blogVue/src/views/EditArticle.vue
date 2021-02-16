@@ -17,20 +17,20 @@
 <script>
 export default {
     name: 'editArticle',
-    
+
     methods: {
         async edit () {
-            const url = 'http://localhost:8888/api/article/update/' 
+            const url = 'http://localhost:8888/api/article/update/'
             console.log(url)
 
-            await this.axios.patch(url + + "?aid=" + this.$route.params.id + "&title=" + this.title + "&content=" + this.content + "&img_link=" + this.link, {})
+            await this.axios.patch(url + + "?aid=" + this.$route.params.id + "&title=" + this.title + "&content=" + this.content + "&img_link=" + this.link, {headers: {Authorization: this.$store.state.token}})
             .then(res => {
                 if (res.status == 200){
                     this.$router.push({path: `/article/${this.id}`})
                 }
             })
             .catch(err => {
-            
+
             if(err && err.response && err.response.status){
               if (err.response.status === 401){
                 this.error = "Erreur";
@@ -40,12 +40,12 @@ export default {
               else
                 this.error = err.message;
             }
-          })    
+          })
         }
     },
     created: async function() {
-       
-          const url = 'http://localhost:8888/api/article/read/' 
+
+          const url = 'http://localhost:8888/api/article/read/'
           console.log(url)
 
           await this.axios.get(url + "?aid=" + this.$route.params.id, {})
@@ -58,7 +58,7 @@ export default {
             }
           })
           .catch(err => {
-            
+
             if(err && err.response && err.response.status){
               if (err.response.status === 404){
                 this.error = "The requested account doesn't exist";
@@ -68,8 +68,8 @@ export default {
               else
                 this.error = err.message;
             }
-          })    
-        
+          })
+
     },
     computed: {
         id: 0,

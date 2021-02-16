@@ -20,28 +20,10 @@ export default {
     methods: {
         logout: async function () {
           console.log("test logout")
-          const url = 'http://localhost:8888/api/logout'
 
-          await this.axios.get(url, {withCredentials: true})
-          .then(res => {
-            if (res.status == 200){
-              this.$store.commit('logoutSuccess')
-              this.$router.push({path: '/login'})
-            }
-          })
-          .catch(err => {
-
-            if(err && err.response && err.response.status){
-            if (err.response.status === 404){
-              this.error = "The requested account doesn't exist";
-            }
-            else if (err.response.status === 500)
-              this.error = "Internal server error";
-            else
-              this.error = err.message;
-            }
-        })
-      }
+          this.$store.commit('logoutSuccess');
+          this.$router.push({path: '/login'});
+        }
     },
     computed: {
       ...mapGetters({
